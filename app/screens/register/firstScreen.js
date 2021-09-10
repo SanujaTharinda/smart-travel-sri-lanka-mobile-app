@@ -47,7 +47,7 @@ const RegisterFirst = ({ navigation }) => {
   return (
     <ImageBackground source={require('./../../../assets/login-register.png')} style={styles.container}>
       <View>
-        <View style={styles.logoContainer}>
+        <View>
           <SvgUri
             width={Dimensions.get('window').width}
             style={styles.logo}
@@ -127,23 +127,24 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 30,
-    marginTop: 50
+    marginTop: Dimensions.get('screen').height * 0.02
   },
   buttonText: {
     color: WHITE,
     fontSize: 30
   },
   container: {
-    height: Dimensions.get('screen').height
+    height: Dimensions.get('screen').height,
+    paddingTop: Dimensions.get('screen').height * 0.05,
   },
   input: {
-    marginTop: 30,
+    marginTop: Dimensions.get('screen').height * 0.01,
     backgroundColor: GREY,
     borderRadius: 50,
   },
   inputLabel: {
     fontSize: 20,
-    marginBottom: 10,
+    marginBottom: Dimensions.get('screen').height * 0.005,
     color: PRIMARY
   },
   link: {
@@ -153,17 +154,15 @@ const styles = StyleSheet.create({
   registerBox: {
     paddingLeft: 20,
     paddingRight: 20,
-    marginTop: 35
+    marginTop: Dimensions.get('screen').height * 0.01
   },
   registerText: {
     fontWeight: 'bold',
-    fontSize: 30
-  },
-  logoContainer: {
-    marginTop: 50
+    fontSize: 30,
+    marginBottom: Dimensions.get('screen').height * 0.02
   },
   login: {
-    color: BLACK,
+    color: PRIMARY,
     fontWeight: 'bold',
     textDecorationLine: 'underline'
   },

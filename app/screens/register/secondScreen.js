@@ -16,7 +16,7 @@ import Error from '../../components/common/Error';
 import { GREY, DARKGREY, PRIMARY, WHITE, BLACK } from './../../theme/colors';
 
 
-const RegisterSecond = ({ route, navigation}) => {
+const RegisterSecond = ({ route, navigation }) => {
   const theme = useTheme();
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
@@ -38,31 +38,31 @@ const RegisterSecond = ({ route, navigation}) => {
   };
 
   const renderIcon = (props) => (
-        <TouchableWithoutFeedback onPress={() => setSecureTextEntry(!secureTextEntry)}>
-            <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
-        </TouchableWithoutFeedback>
-    );
+    <TouchableWithoutFeedback onPress={() => setSecureTextEntry(!secureTextEntry)}>
+      <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
+    </TouchableWithoutFeedback>
+  );
 
 
   return (
     <ImageBackground source={require('./../../../assets/login-register.png')} style={styles.container}>
       <View>
-        <View style={styles.logoContainer}>
+        <View>
           <SvgUri
             width={Dimensions.get('window').width}
             source={require('./../../../assets/logo.svg')}
           />
           <Formik
-            initialValues = {formik.initialValues}
-            validationSchema = {formik.validationSchema}
-            onSubmit = {(values) => {
-                console.log({
-                  ...values,
-                  ...route.params
-                });
+            initialValues={formik.initialValues}
+            validationSchema={formik.validationSchema}
+            onSubmit={(values) => {
+              console.log({
+                ...values,
+                ...route.params
+              });
             }}
           >
-            {({handleChange, handleSubmit, values, errors}) => (<View style={styles.registerBox}>
+            {({ handleChange, handleSubmit, values, errors }) => (<View style={styles.registerBox}>
               <Text style={styles.registerText}>Register</Text>
               <Input
                 textContentType='password'
@@ -115,23 +115,24 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 30,
-    marginTop: 50
+    marginTop: Dimensions.get('screen').height * 0.04
   },
   buttonText: {
     color: WHITE,
     fontSize: 30
   },
   container: {
-    height: Dimensions.get('screen').height
+    height: Dimensions.get('screen').height,
+    paddingTop: Dimensions.get('screen').height * 0.05
   },
   input: {
-    marginTop: 30,
+    marginBottom: Dimensions.get('screen').height * 0.02,
     backgroundColor: GREY,
     borderRadius: 50,
   },
   inputLabel: {
     fontSize: 20,
-    marginBottom: 10,
+    marginBottom: Dimensions.get('screen').height * 0.02,
     color: PRIMARY
   },
   link: {
@@ -145,10 +146,8 @@ const styles = StyleSheet.create({
   },
   registerText: {
     fontWeight: 'bold',
-    fontSize: 30
-  },
-  logoContainer: {
-    marginTop: 50
+    fontSize: 30,
+    marginBottom: Dimensions.get('screen').height * 0.03
   },
   login: {
     color: BLACK,

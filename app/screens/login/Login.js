@@ -36,7 +36,11 @@ const Login = ({ navigation }) => {
                 .required("Required field"),
         }),
         onSubmit: ({ email, password }) => {
-            console.log("Submitting");
+            console.log({
+                email,
+                password,
+                rememberMe: checked
+            });
         },
     };
 
@@ -49,7 +53,7 @@ const Login = ({ navigation }) => {
     return (
         <ImageBackground source={require('./../../../assets/login-register.png')} style={styles.container}>
             <View>
-                <View style={styles.logoContainer}>
+                <View >
                     <SvgUri
                         width={Dimensions.get('window').width}
                         source={require('./../../../assets/logo.svg')}
@@ -70,9 +74,6 @@ const Login = ({ navigation }) => {
                                 value={values.email}
                                 label={evaProps => <Text {...evaProps} style={styles.inputLabel}>Email</Text>}
                                 placeholder='Enter your email...'
-                                // caption={renderCaption}
-                                // accessoryRight={renderIcon}
-                                // secureTextEntry={secureTextEntry}
                                 onChangeText={handleChange('email')}
                                 style={styles.input}
                             />
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     },
     button: {
         borderRadius: 30,
-        marginTop: 100
+        marginTop: Dimensions.get('screen').height * 0.04
     },
     buttonText: {
         color: WHITE,
@@ -156,7 +157,8 @@ const styles = StyleSheet.create({
         color: "#8F9BB3",
     },
     container: {
-        height: Dimensions.get('screen').height
+        height: Dimensions.get('screen').height,
+        paddingTop: Dimensions.get('screen').height * 0.05
     },
     error: {
         fontSize: 15,
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     input: {
-        marginTop: 35,
+        marginTop: Dimensions.get('screen').height * 0.04,
         backgroundColor: GREY,
         borderRadius: 50,
     },
@@ -180,17 +182,14 @@ const styles = StyleSheet.create({
     loginBox: {
         paddingLeft: 20,
         paddingRight: 20,
-        marginTop: 35
+        marginTop: Dimensions.get('screen').height * 0.04
     },
     loginText: {
         fontWeight: 'bold',
         fontSize: 30
     },
-    logoContainer: {
-        marginTop: 50
-    },
     register: {
-        color: BLACK,
+        color: PRIMARY,
         fontWeight: 'bold',
         textDecorationLine: 'underline'
     },
