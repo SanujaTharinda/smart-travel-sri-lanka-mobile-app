@@ -5,17 +5,44 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  TouchableWithoutFeedback
 } from 'react-native';
-import { Button, CheckBox, Input, useTheme } from '@ui-kitten/components';
-
+import { Button, CheckBox, Input, useTheme, Icon } from '@ui-kitten/components';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import SvgUri from 'react-native-svg-uri';
+import Error from '../../components/common/Error';
 import { GREY, DARKGREY, PRIMARY, WHITE, BLACK } from './../../theme/colors';
 
 
-const RegisterSecond = () => {
+const RegisterSecond = ({ route, navigation}) => {
   const theme = useTheme();
-  const [checked, setChecked] = useState(false);
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+
+
+  const formik = {
+    initialValues: {
+      password: "",
+      repeatPassword: ""
+    },
+    validationSchema: Yup.object({
+      password: Yup.string()
+        .min(6, "Password must contain more than 6 characters")
+        .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/, "Password must contain minimum six characters, at least one letter, one number and one special character")
+        .required("Required field"),
+      repeatPassword: Yup.string()
+        .oneOf([Yup.ref('password')], 'Password must be the same!')
+        .required('Required!'),
+    })
+  };
+
+  const renderIcon = (props) => (
+        <TouchableWithoutFeedback onPress={() => setSecureTextEntry(!secureTextEntry)}>
+            <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
+        </TouchableWithoutFeedback>
+    );
+
 
   return (
     <ImageBackground source={require('./../../../assets/login-register.png')} style={styles.container}>
@@ -23,65 +50,54 @@ const RegisterSecond = () => {
         <View style={styles.logoContainer}>
           <SvgUri
             width={Dimensions.get('window').width}
-            style={styles.logo}
             source={require('./../../../assets/logo.svg')}
           />
-          <View style={styles.registerBox}>
-            <Text style={styles.registerText}>Register</Text>
-            <Input
-              textContentType='telephoneNumber'
-              size='large'
-              textStyle={{ color: BLACK, height: 40 }}
-              // value={value}
-              label={evaProps => <Text {...evaProps} style={styles.inputLabel}>Telephone Number</Text>}
-              placeholder='Enter your telephone number...'
-              // caption={renderCaption}
-              // accessoryRight={renderIcon}
-              // secureTextEntry={secureTextEntry}
-              // onChangeText={nextValue => setValue(nextValue)}
-              style={styles.input}
-            />
-            <Input
-              textContentType='password'
-              size='large'
-              textStyle={{ color: BLACK, height: 40 }}
-              // value={value}
-              label={evaProps => <Text {...evaProps} style={styles.inputLabel}>Password</Text>}
-              placeholder='Enter your password...'
-              // caption={renderCaption}
-              // accessoryRight={renderIcon}
-              // secureTextEntry={secureTextEntry}
-              // onChangeText={nextValue => setValue(nextValue)}
-              style={styles.input}
-            />
-            <Input
-              textContentType='password'
-              size='large'
-              textStyle={{ color: BLACK, height: 40 }}
-              // value={value}
-              label={evaProps => <Text {...evaProps} style={styles.inputLabel}>Re enter password</Text>}
-              placeholder='Enter your password...'
-              // caption={renderCaption}
-              // accessoryRight={renderIcon}
-              // secureTextEntry={secureTextEntry}
-              // onChangeText={nextValue => setValue(nextValue)}
-              style={styles.input}
-            />
-
-
-
-            <Button
-              size='small'
-              onPress={() => console.log("Pressed")}
-              style={styles.button}>
-              {(evaPro) => <Text evaProps style={styles.buttonText}>Next</Text>}
-            </Button>
-            <View style={styles.row}>
-
-              <Text style={styles.account}>Already Have An Account? </Text>
-              <Text style={styles.login}>Login</Text>
-            </View>
-          </View>
+          <Formik
+            initialValues = {formik.initialValues}
+            validationSchema = {formik.validationSchema}
+            onSubmit = {(values) => {
+                console.log({
+                  ...values,
+                  ...route.params
+                });
+            }}
+          >
+            {({handleChange, handleSubmit, values, errors}) => (<View style={styles.registerBox}>
+              <Text style={styles.registerText}>Register</Text>
+              <Input
+                textContentType='password'
+                size='large'
+                textStyle={{ color: BLACK, height: 40 }}
+                value={values.password}
+                label={evaProps => <Text {...evaProps} style={styles.inputLabel}>Password</Text>}
+                placeholder='Enter your password...'
+                accessoryRight={renderIcon}
+                secureTextEntry={secureTextEntry}
+                onChangeText={handleChange('password')}
+                style={styles.input}
+              />
+              {errors.password && <Error error={errors.password} />}
+              <Input
+                textContentType='repeatPassword'
+                size='large'
+                textStyle={{ color: BLACK, height: 40 }}
+                value={values.repeatPassword}
+                label={evaProps => <Text {...evaProps} style={styles.inputLabel}>Re enter password</Text>}
+                placeholder='Repeat your password...'
+                accessoryRight={renderIcon}
+                secureTextEntry={secureTextEntry}
+                onChangeText={handleChange('repeatPassword')}
+                style={styles.input}
+              />
+              {errors.repeatPassword && <Error error={errors.repeatPassword} />}
+              <Button
+                size='small'
+                onPress={handleSubmit}
+                style={styles.button}>
+                {(evaPro) => <Text evaProps style={styles.buttonText}>Register</Text>}
+              </Button>
+            </View>)}
+          </Formik>
         </View>
 
       </View>
@@ -106,7 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   container: {
-    height: "100%"
+    height: Dimensions.get('screen').height
   },
   input: {
     marginTop: 30,

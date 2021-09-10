@@ -5,16 +5,18 @@ import {
     Text,
     StyleSheet,
     Dimensions,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    TouchableOpacity,
 } from 'react-native';
 import { Button, CheckBox, Input, Icon, useTheme } from '@ui-kitten/components';
 import SvgUri from 'react-native-svg-uri';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { GREY, PRIMARY, WHITE, BLACK } from './../../theme/colors';
+import { NAVIGATION } from '../../constants';
 
 
-const Login = () => {
+const Login = ({ navigation }) => {
     const theme = useTheme();
     const [checked, setChecked] = useState(false);
     const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -109,7 +111,9 @@ const Login = () => {
                             </Button>
                             <View style={styles.row}>
                                 <Text style={styles.account}>Don't Have An Account? </Text>
-                                <Text style={styles.register}>Register</Text>
+                                <TouchableOpacity onPress={() => navigation.navigate(NAVIGATION.register.first)}>
+                                    <Text style={styles.register}>Register</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>)}
                 </Formik>
