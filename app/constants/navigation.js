@@ -3,7 +3,7 @@ export default {
     login: 'Login',
     register: {
         first: "Register1",
-        second: "Register"
+        second: "Register2"
     },
     profile: 'Profile',
 };
