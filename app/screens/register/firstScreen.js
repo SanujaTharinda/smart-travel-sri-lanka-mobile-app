@@ -50,7 +50,6 @@ const RegisterFirst = ({ navigation }) => {
         <View>
           <SvgUri
             width={Dimensions.get('window').width}
-            style={styles.logo}
             source={require('./../../../assets/logo.svg')}
           />
           <Formik

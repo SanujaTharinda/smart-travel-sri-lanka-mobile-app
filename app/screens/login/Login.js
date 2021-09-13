@@ -108,11 +108,11 @@ const Login = ({ navigation }) => {
                                 onPress={handleSubmit}
                                 title='submit'
                                 style={styles.button}>
-                                {(evaPro) => <Text evaProps style={styles.buttonText}>Login</Text>}
+                                {(evaProps) => <Text evaProps style={styles.buttonText}>Login</Text>}
                             </Button>
                             <View style={styles.row}>
                                 <Text style={styles.account}>Don't Have An Account? </Text>
-                                <TouchableOpacity onPress={() => navigation.navigate(NAVIGATION.register.first)}>
+                                <TouchableOpacity onPress={() => navigation.navigate(NAVIGATION.register.common)}>
                                     <Text style={styles.register}>Register</Text>
                                 </TouchableOpacity>
                             </View>

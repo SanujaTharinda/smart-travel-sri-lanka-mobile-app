@@ -3,7 +3,8 @@ export default {
     login: 'Login',
     register: {
         first: "Register1",
-        second: "Register2"
+        second: "Register2",
+        common: "Register"
     },
     profile: 'Profile',
 };
