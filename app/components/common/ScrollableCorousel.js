@@ -8,13 +8,18 @@ import {
     Dimensions
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { BLACK, PRIMARY, WHITE } from './../../theme/colors';
+import { NAVIGATION as nav } from '../../constants';
+import { useNavigation } from '@react-navigation/native';
 
 
 const ScrollableCorousel = ({
     title,
-    images
+    elements,
+    destination
 }) => {
-    console.log(images);
+    const navigation = useNavigation();
+    console.log(destination);
     return (<View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
         <ScrollView
@@ -22,13 +27,21 @@ const ScrollableCorousel = ({
             style={styles.scrollViewContainer}
             showsHorizontalScrollIndicator={false}
         >
-            {images.map((i) => {
-                return (<TouchableOpacity key={i.id} style={{ marginHorizontal: 10 }}>
+            {elements.map((e) => {
+                return (<TouchableOpacity
+                    key={e.id}
+                    style={{ marginHorizontal: 10 }}
+                    onPress={() => navigation.navigate(destination, e)}
+                >
                     <ImageBackground
                         style={styles.scrollImage}
-                        source={i.source}
+                        source={e.source}
                         imageStyle={styles.image}
-                    ></ImageBackground>
+                    >
+                        <Text style={styles.imageLabel}>{e.title}</Text>
+
+
+                    </ImageBackground>
                 </TouchableOpacity>)
             })}
         </ScrollView>
@@ -46,7 +59,12 @@ const styles = StyleSheet.create({
     },
     image: {
         borderRadius: 30,
-        shadowOpacity: 0.26
+    },
+    imageLabel: {
+        color: WHITE,
+        fontSize: 20,
+        fontWeight: 'bold',
+        elevation: 50
     },
     scrollViewContainer: {
         marginTop: 10,
@@ -59,5 +77,7 @@ const styles = StyleSheet.create({
     scrollImage: {
         width: Dimensions.get('screen').width * 0.7,
         height: "100%",
+        paddingTop: 20,
+        paddingLeft: 20
     },
 });

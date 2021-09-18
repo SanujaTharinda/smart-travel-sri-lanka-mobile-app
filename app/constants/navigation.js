@@ -1,10 +1,15 @@
 export default {
-    home: 'Home',
+    home: {
+        screen: "HomeScreen",
+        navigator: "Home"
+    },
     login: 'Login',
     register: {
         first: "Register1",
         second: "Register2",
-        common: "Register"
+        navigator: "Register"
     },
     profile: 'Profile',
+    event: "Event",
+    category: "Category"
 };
