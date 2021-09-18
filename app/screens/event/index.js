@@ -39,10 +39,11 @@ const styles = StyleSheet.create({
     },
     details: {
         fontSize: 15,
+        fontWeight: 'bold',
+        opacity: 0.7,
     },
     detailsContainer: {
-        marginTop: 15,
-
+        marginTop: 15
     },
     image: {
         width: "100%",

@@ -14,9 +14,9 @@ const HomeNavigator = () => {
     return (
         <Stack.Navigator
             screenOptions={{
-                headerShown: false
+                headerShown: false,
+                presentation: 'modal'
             }}
-            mode='modal'
         >
             <Stack.Screen name={NAVIGATION.home.screen} component={Home} />
             <Stack.Screen name={NAVIGATION.event} component={Event} />
