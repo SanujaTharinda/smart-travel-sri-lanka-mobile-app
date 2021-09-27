@@ -9,41 +9,48 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BLACK, PRIMARY, WHITE } from './../../theme/colors';
-import { NAVIGATION as nav, NAVIGATION } from '../../constants';
+import { useSelector } from 'react-redux';
+import { getCategories } from '../../store/entities/categories';
+import Spinner from '../../components/common/Spinner';
+import { useFirestoreConnect } from 'react-redux-firebase';
+import { collections } from '../../firebase';
 import { useNavigation } from '@react-navigation/native';
+import { NAVIGATION } from '../../constants';
 
 
-const CategoryCorousel = ({
-    title,
-    elements,
-    destination
-}) => {
-    const navigation = useNavigation();
-    console.log(destination);
+const CategoryCorousel = () => {
+    const navigator = useNavigation()
+    useFirestoreConnect([
+        collections.categories.name
+    ])
+
+    const categories = useSelector(getCategories);
+
+   
     return (<View style={styles.container}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>Categories</Text>
         <ScrollView
             horizontal
             style={styles.scrollViewContainer}
             showsHorizontalScrollIndicator={false}
         >
-            {elements.map((e) => {
+            {categories ? categories.map((c) => {
                 return (<TouchableOpacity
-                    key={e.id}
+                    key={c.id}
                     style={{ marginHorizontal: 10 }}
-                    onPress={() => navigation.navigate(destination,{screen:NAVIGATION.category.screen , params: e})}
+                    onPress = {() => navigator.navigate(NAVIGATION.category.navigator,{screen: NAVIGATION.category.screen , params:c} )}
                 >
                     <ImageBackground
                         style={styles.scrollImage}
-                        source={e.source}
+                        source={{uri: c.url}}
                         imageStyle={styles.image}
                     >
-                        <Text style={styles.imageLabel}>{e.title}</Text>
+                        <Text style={styles.imageLabel}>{c.title}</Text>
 
 
                     </ImageBackground>
                 </TouchableOpacity>)
-            })}
+            }): <Spinner/>}
         </ScrollView>
     </View>);
 }

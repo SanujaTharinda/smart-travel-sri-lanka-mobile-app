@@ -43,19 +43,21 @@ const destinations = [
 
 const Category = ({ route }) => {
     const category = route.params;
+    console.log(route);
 
     return (
         <ScrollView style={styles.container}>
             <DestinationCard
-                image={category.source}
+                image={category.url}
                 title={"Temple of Tooth Relic"}
                 shortDescription={"This is a Short Descroption"}
                 rating={4}
+                
              
 
             />
             <DestinationCard
-                image={category.source}
+                image={category.url}
                 title={"Another Place"}
                 shortDescription={"This is a Short Descroption"}
                 rating={3}
@@ -63,7 +65,7 @@ const Category = ({ route }) => {
 
             />
             <DestinationCard
-                image={category.source}
+                image={category.url}
                 title={"Some Other Place"}
                 shortDescription={"This is a Short Descroption"}
                 rating={1}
@@ -71,7 +73,7 @@ const Category = ({ route }) => {
 
             />
             <DestinationCard
-                image={category.source}
+                image={category.url}
                 title={"Another Place"}
                 shortDescription={"This is a Short Descroption"}
                 rating={2}
@@ -79,13 +81,13 @@ const Category = ({ route }) => {
 
             />
             <DestinationCard
-                image={category.source}
+                image={category.url}
                 title={"Temple of Tooth Relic"}
                 shortDescription={"This is a Short Descroption"}
                 rating={3}
             />
             <DestinationCard
-                image={category.source}
+                image={category.url}
                 title={"Temple of Tooth Relic"}
                 shortDescription={"This is a Short Descroption"}
                 rating={4}

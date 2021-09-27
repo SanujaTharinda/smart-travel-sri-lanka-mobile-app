@@ -36,5 +36,8 @@ export default {
         reviews: {
             name: 'reviews'
         }
+    },
+    events: {
+        name: 'events'
     }
 }

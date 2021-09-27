@@ -6,14 +6,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { NAVIGATION } from '../../constants';
 
-const DestinationCard = ({ image, title, shortDescription, rating, onReadMorePress }) => {
+const DestinationCard = ({ image, title,id, shortDescription, rating, onReadMorePress }) => {
     const navigator = useNavigation();
     return (
         <View style={styles.cardContainer}>
             <View style={styles.card}>
                 <View style={styles.imageContainer}>
                     <Image
-                        source={image}
+                        source={{uri: image}}
                         style={styles.image}
                     />
                 </View>

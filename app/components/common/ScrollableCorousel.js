@@ -5,12 +5,13 @@ import {
     ScrollView,
     ImageBackground,
     StyleSheet,
-    Dimensions
+    Dimensions,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BLACK, PRIMARY, WHITE } from './../../theme/colors';
 import { NAVIGATION as nav } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
+import Spinner from './Spinner';
 
 
 const ScrollableCorousel = ({
@@ -27,7 +28,7 @@ const ScrollableCorousel = ({
             style={styles.scrollViewContainer}
             showsHorizontalScrollIndicator={false}
         >
-            {elements.map((e) => {
+            {elements ? elements.map((e) => {
                 return (<TouchableOpacity
                     key={e.id}
                     style={{ marginHorizontal: 10 }}
@@ -35,7 +36,7 @@ const ScrollableCorousel = ({
                 >
                     <ImageBackground
                         style={styles.scrollImage}
-                        source={e.source}
+                        source={{uri: e.url}}
                         imageStyle={styles.image}
                     >
                         <Text style={styles.imageLabel}>{e.title}</Text>
@@ -43,7 +44,7 @@ const ScrollableCorousel = ({
 
                     </ImageBackground>
                 </TouchableOpacity>)
-            })}
+            }) : <Spinner/>}
         </ScrollView>
     </View>);
 }
