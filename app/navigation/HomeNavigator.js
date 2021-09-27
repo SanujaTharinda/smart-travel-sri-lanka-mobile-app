@@ -3,8 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Home } from './../screens';
 import { Event } from './../screens';
 import { NAVIGATION } from "../constants";
-import { PRIMARY } from "../theme/colors";
-import Category from './../screens/category/index';
+import CategoryNavigator from "./CategoryNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,8 +18,8 @@ const HomeNavigator = () => {
             }}
         >
             <Stack.Screen name={NAVIGATION.home.screen} component={Home} />
+            <Stack.Screen name={NAVIGATION.category.navigator} component={CategoryNavigator} />
             <Stack.Screen name={NAVIGATION.event} component={Event} />
-            <Stack.Screen name={NAVIGATION.category} component={Category} />
         </Stack.Navigator>
     );
 }

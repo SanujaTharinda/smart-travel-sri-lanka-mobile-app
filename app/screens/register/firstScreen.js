@@ -15,9 +15,11 @@ import { GREY, PRIMARY, WHITE, BLACK } from './../../theme/colors';
 import { NAVIGATION } from './../../constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Error from '../../components/common/Error';
+import { useNavigation } from '@react-navigation/native';
 
 
-const RegisterFirst = ({ navigation }) => {
+const RegisterFirst = () => {
+  const navigation = useNavigation();
   const theme = useTheme();
 
   const formik = {

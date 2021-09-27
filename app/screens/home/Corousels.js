@@ -1,6 +1,7 @@
 import React from 'react';
 import ScrollableCorousel from '../../components/common/ScrollableCorousel';
 import { NAVIGATION } from '../../constants';
+import CategoryCorousel from './CategoryCorousel';
 
 
 const categories = [{
@@ -44,9 +45,9 @@ const events = [{
 
 const Corousels = () => {
     return (<>
-        <ScrollableCorousel
+        <CategoryCorousel
             title='Categories'
-            destination={NAVIGATION.category}
+            destination={NAVIGATION.category.navigator}
             elements={categories}
         />
         <ScrollableCorousel
@@ -54,6 +55,7 @@ const Corousels = () => {
             destination={NAVIGATION.event}
             elements={events}
         />
+        
     </>
     );
 }

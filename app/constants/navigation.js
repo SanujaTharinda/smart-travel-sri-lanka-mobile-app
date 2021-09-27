@@ -5,11 +5,21 @@ export default {
     },
     login: 'Login',
     register: {
-        first: "Register1",
-        second: "Register2",
+        first: "RegisterFirst",
+        second: "RegisterSecond",
         navigator: "Register"
     },
     profile: 'Profile',
     event: "Event",
-    category: "Category"
+    category: {
+        screen: "CategoryScreen",
+        navigator: "Category"
+
+    },
+    destination: "Destination",
+    tripPlanner: "TripPlanner",
+    currencyConverter: "CurrencyConverter",
+    about: "About",
+    help: "Help",
+    settings: "Settings"
 };

@@ -1,3 +1,12 @@
 export { default as Home } from './home';
-export { default as Login } from './login/Login';
+export { default as Login } from './login';
+export { default as RegisterFirst } from './register/firstScreen';
+export { default as RegisterSecond } from './register/secondScreen';
 export { default as Event } from './event';
+export { default as Category } from './category';
+export { default as Destination } from './destination';
+export { default as TripPlanner } from './tripPlanner';
+export { default as About } from './about';
+export { default as Help } from './help';
+export { default as CurrencyConverter } from './currencyConverter';
+export { default as Settings } from './settings';

@@ -12,7 +12,7 @@ import { Button, CheckBox, Input, Icon, useTheme } from '@ui-kitten/components';
 import SvgUri from 'react-native-svg-uri';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { GREY, PRIMARY, WHITE, BLACK } from './../../theme/colors';
+import { GREY, PRIMARY, WHITE, BLACK } from '../../theme/colors';
 import { NAVIGATION } from '../../constants';
 
 

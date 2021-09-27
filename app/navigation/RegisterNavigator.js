@@ -1,17 +1,20 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NAVIGATION } from '../constants'
-import RegisterFirst from './../screens/register/firstScreen';
-import RegisterSecond from './../screens/register/secondScreen';
+import { RegisterFirst, RegisterSecond } from "./../screens";
 
 const Stack = createNativeStackNavigator();
 
 
 const RegisterNavigator = () => {
     return (
-        <Stack.Navigator>
-            <Stack.Screen options={{ headerShown: false }} name={NAVIGATION.register.first} component={RegisterFirst} />
-            <Stack.Screen options={{ headerShown: false }} name={NAVIGATION.register.second} component={RegisterSecond} />
+        <Stack.Navigator
+            screenOptions = {{
+                headerShown: false
+            }}
+        >
+            <Stack.Screen name={NAVIGATION.register.first} component={RegisterFirst} />
+            <Stack.Screen name={NAVIGATION.register.second} component={RegisterSecond} />
         </Stack.Navigator>
     );
 }
