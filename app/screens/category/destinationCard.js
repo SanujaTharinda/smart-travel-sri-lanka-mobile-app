@@ -6,28 +6,28 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { NAVIGATION } from '../../constants';
 
-const DestinationCard = ({ image, title,id, shortDescription, rating, onReadMorePress }) => {
+const DestinationCard = ({ destination }) => {
     const navigator = useNavigation();
     return (
         <View style={styles.cardContainer}>
             <View style={styles.card}>
                 <View style={styles.imageContainer}>
                     <Image
-                        source={{uri: image}}
+                        source={{uri: destination.mainPhoto}}
                         style={styles.image}
                     />
                 </View>
                 <View style={styles.detailsContainer}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.shortDescription}>{shortDescription}</Text>
-                    <TouchableOpacity onPress = {() => navigator.navigate(NAVIGATION.destination, {title})}>
+                    <Text style={styles.title}>{destination.title}</Text>
+                    <Text style={styles.shortDescription}>{destination.description}</Text>
+                    <TouchableOpacity onPress = {() => navigator.navigate(NAVIGATION.destination, destination)}>
                         <Text style={styles.readMore}>Read More...</Text>
                     </TouchableOpacity>
                     <View style={styles.ratingContainer}>
                         <AirbnbRating
                             count={5}
                             showRating={false}
-                            defaultRating={rating}
+                            defaultRating={4}
                             size={15}
                             isDisabled={true}
                             selectedColor={PRIMARY}

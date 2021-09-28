@@ -1,7 +1,13 @@
 import React from 'react';
-import { ScrollView, View, Text, Image, StyleSheet, Dimensions, TouchableWithoutFeedback } from 'react-native';
-import { BLACK, PRIMARY } from '../../theme/colors';
+import { ScrollView,StyleSheet, Text} from 'react-native';
+import { useFirestoreConnect } from 'react-redux-firebase';
+import { useSelector } from 'react-redux';
 import DestinationCard from './destinationCard';
+import { Spinner } from '../../components/common/Spinner';
+import { collections } from './../../firebase';
+import { getPublishedDestinationsByCategory } from '../../store/entities/destinations';
+import NoResults from '../../components/common/NoResults';
+
 
 
 const destinations = [
@@ -43,57 +49,19 @@ const destinations = [
 
 const Category = ({ route }) => {
     const category = route.params;
-    console.log(route);
+    useFirestoreConnect([
+        collections.destinations.name
+    ]);
+    const destinations = useSelector(getPublishedDestinationsByCategory(category.title));
+    console.log(destinations)
 
     return (
         <ScrollView style={styles.container}>
-            <DestinationCard
-                image={category.url}
-                title={"Temple of Tooth Relic"}
-                shortDescription={"This is a Short Descroption"}
-                rating={4}
-                
-             
-
-            />
-            <DestinationCard
-                image={category.url}
-                title={"Another Place"}
-                shortDescription={"This is a Short Descroption"}
-                rating={3}
-      
-
-            />
-            <DestinationCard
-                image={category.url}
-                title={"Some Other Place"}
-                shortDescription={"This is a Short Descroption"}
-                rating={1}
-            
-
-            />
-            <DestinationCard
-                image={category.url}
-                title={"Another Place"}
-                shortDescription={"This is a Short Descroption"}
-                rating={2}
-               
-
-            />
-            <DestinationCard
-                image={category.url}
-                title={"Temple of Tooth Relic"}
-                shortDescription={"This is a Short Descroption"}
-                rating={3}
-            />
-            <DestinationCard
-                image={category.url}
-                title={"Temple of Tooth Relic"}
-                shortDescription={"This is a Short Descroption"}
-                rating={4}
-
-            />
-
+            {destinations && destinations.length > 0 ? destinations.map(d => 
+                <DestinationCard
+                    destination = {d}
+                /> 
+            ): destinations ? <NoResults/> : <Spinner/>}
         </ScrollView>
     );
 }
