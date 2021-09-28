@@ -23,7 +23,7 @@ const Home = () => {
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
             <View style={styles.headerContainer}>
-                <Header images={images} />
+                <Header/>
             </View>
             <View style={styles.contentContainer}>
                 <View style={styles.contentHeader}>

@@ -3,19 +3,34 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { SliderBox } from 'react-native-image-slider-box';
 import { FastImage } from 'react-native-fast-image';
 import { BLACK, PRIMARY, WHITE } from './../../theme/colors';
+import { useFirestoreConnect } from 'react-redux-firebase';
+import { collections } from '../../firebase';
+import { useSelector } from 'react-redux';
+import { getPublishedDestinations } from '../../store/entities/destinations';
+import { useNavigation } from '@react-navigation/native';
+import { NAVIGATION } from '../../constants';
 
 
 const Header = ({images}) => {
+    useFirestoreConnect([
+        collections.destinations.name
+    ]);
+    const navigator = useNavigation();
+
+    const destinations = useSelector(getPublishedDestinations);
+
+
     return ( 
             <View style={styles.homeHeader}>
                 <SliderBox
                     sliderBoxHeight={'100%'}
-                    images={images}
+                    images={destinations.map(d => d.mainPhoto)}
                     autoplay
                     circleLoop
                     autoplayInterval={6000}
                     imageLoadingColor={PRIMARY}
                     ImageComponent={FastImage}
+                    onCurrentImagePressed = {index => navigator.navigate(NAVIGATION.category.navigator, {screen: NAVIGATION.destination ,params: {destination: destinations[index]}})}
                 />
             </View>
      );

@@ -4,11 +4,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card } from '@ui-kitten/components';
 import SvgUri from 'react-native-svg-uri';
 import { PRIMARY, WHITE, GREY } from '../../theme/colors';
+import { useNavigation } from '@react-navigation/native';
+import { NAVIGATION } from '../../constants';
 
 const TripPlanner = () => {
+    const navigator = useNavigation();
     return (
         <View style={styles.container}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress = {() => navigator.navigate(NAVIGATION.tripPlanner)}>
                 <Card style={styles.card}>
                     <SvgUri
                         source={require('../../../assets/home/suitcase.svg')}
