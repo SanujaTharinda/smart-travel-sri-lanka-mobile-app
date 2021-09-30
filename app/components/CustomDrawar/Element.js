@@ -5,11 +5,11 @@ import { BLACK } from '../../theme/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-const Element = ({text, icon, destination }) => {
+const Element = ({text, icon, destination, screen }) => {
     const navigaion = useNavigation();
 
     return(
-                <TouchableOpacity onPress = {() => navigaion.navigate(destination)} style = {styles.container}>
+                <TouchableOpacity onPress = {() => navigaion.navigate(destination, screen ? {screen} : {})} style = {styles.container}>
                     <Icon
                         style={styles.icon}
                         fill={BLACK}

@@ -1,25 +1,13 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet, ScrollView } from 'react-native';
+import { View, Text,StyleSheet, ScrollView } from 'react-native';
 import { GREY, PRIMARY, WHITE, BLACK } from '../../theme/colors';
 import SearchBar from '../../components/common/SearchBar';
-import { useSelector } from 'react-redux';
 import Header from './Header';
 import TripPlanner from './TripPlanner';
 import Corousels from './Corousels';
-import { useFirestoreConnect } from 'react-redux-firebase';
-import { getEvents } from './../../store/entities/events';
 
 
 const Home = () => {
-   
-    const images = [
-        require('../../../assets/home/1.jpg'),
-        require('../../../assets/home/2.jpg'),
-        require('../../../assets/home/3.jpg'),
-        require('../../../assets/home/4.jpg'),
-        require('../../../assets/home/5.jpg')
-    ];
-
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
             <View style={styles.headerContainer}>

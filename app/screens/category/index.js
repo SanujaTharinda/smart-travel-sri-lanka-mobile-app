@@ -58,9 +58,11 @@ const Category = ({ route }) => {
     return (
         <ScrollView style={styles.container}>
             {destinations && destinations.length > 0 ? destinations.map(d => 
+            <ScrollView>
                 <DestinationCard
                     destination = {d}
                 /> 
+            </ScrollView>
             ): destinations ? <NoResults/> : <Spinner/>}
         </ScrollView>
     );

@@ -16,3 +16,9 @@ export const getPublishedDestinationsByCategory = (category) => createSelector(
     getPublishedDestinations,
     d => d ? d.filter(e => e.categories && e.categories.includes(category)) : []
 );
+
+
+export const getReviews = createSelector(
+    state => state.firestore.ordered.reviews,
+    r => r ? r : []
+)

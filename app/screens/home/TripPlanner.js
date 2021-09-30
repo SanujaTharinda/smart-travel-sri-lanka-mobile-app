@@ -11,20 +11,13 @@ const TripPlanner = () => {
     const navigator = useNavigation();
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress = {() => navigator.navigate(NAVIGATION.tripPlanner)}>
+            <TouchableOpacity style = {{width: '100%'}} onPress = {() => navigator.navigate(NAVIGATION.tripPlanner)}>
                 <Card style={styles.card}>
                     <SvgUri
+                        width = {'100%'}
                         source={require('../../../assets/home/suitcase.svg')}
                     />
                     <Text style={styles.cardText}>Trip Planner</Text>
-                </Card>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Card style={styles.card}>
-                    <SvgUri
-                        source={require('./../../../assets/home/travelGirl.svg')}
-                    />
-                    <Text style={styles.cardText}>Create Trips</Text>
                 </Card>
             </TouchableOpacity>
         </View>);
@@ -34,11 +27,11 @@ export default TripPlanner;
 
 const styles = StyleSheet.create({
     card: {
-        width: '100%',
+        width: "100%",
         height: '85%',
         backgroundColor: PRIMARY,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     cardText: {
         color: WHITE,

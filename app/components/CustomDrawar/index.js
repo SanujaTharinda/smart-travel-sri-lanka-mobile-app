@@ -10,7 +10,7 @@ const profileElements = [
 ];
 
 const navigateElements = [
-    {name: "Home", icon: "home-outline", destination: NAVIGATION.home.navigator},
+    {name: "Home", icon: "home-outline", destination: NAVIGATION.home.navigator, screen: NAVIGATION.home.screen},
     {name: "Trip Planner", icon: "globe-2-outline", destination: NAVIGATION.tripPlanner},
     {name: "Currency Converter", icon: "pricetags", destination: NAVIGATION.currencyConverter},
 ];

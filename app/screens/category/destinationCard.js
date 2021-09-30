@@ -20,7 +20,7 @@ const DestinationCard = ({ destination }) => {
                 <View style={styles.detailsContainer}>
                     <Text style={styles.title}>{destination.title}</Text>
                     <Text style={styles.shortDescription}>{destination.description}</Text>
-                    <TouchableOpacity onPress = {() => navigator.navigate(NAVIGATION.destination, destination)}>
+                    <TouchableOpacity onPress = {() => navigator.navigate(NAVIGATION.destination, {destination})}>
                         <Text style={styles.readMore}>Read More...</Text>
                     </TouchableOpacity>
                     <View style={styles.ratingContainer}>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     card: {
         borderRadius: 30,
         elevation: 4,
-        height: Dimensions.get('screen').height * 0.2,
+        minHeight: Dimensions.get('screen').height * 0.2,
         width: '95%',
         flexDirection: 'row',
         marginVertical: 15
@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
         width: '65%',
         height: '100%',
         paddingLeft: 10,
-        paddingRight: 40,
         justifyContent: 'space-around',
         backgroundColor: GREY
     },
