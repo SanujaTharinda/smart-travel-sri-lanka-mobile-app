@@ -9,7 +9,6 @@ import { getReviews } from '../../store/entities/destinations';
 import Map from './Map';
 
 const BasicInfo = ({ destination }) => {
-    console.log(destination, "Basic Info")
     useFirestoreConnect([{ 
         collection: collections.destinations.name, 
         doc: destination.id, 

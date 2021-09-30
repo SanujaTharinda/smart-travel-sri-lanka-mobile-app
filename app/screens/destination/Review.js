@@ -4,7 +4,6 @@ import { AirbnbRating } from 'react-native-ratings';
 import { GREY, PRIMARY, WHITE } from '../../theme/colors';
 
 const Review = ({ review }) => {
-    console.log("Review", review)
     return(
         <View style = {styles.wrapper}>
             <View style = {styles.container}>

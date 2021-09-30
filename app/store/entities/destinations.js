@@ -21,4 +21,9 @@ export const getPublishedDestinationsByCategory = (category) => createSelector(
 export const getReviews = createSelector(
     state => state.firestore.ordered.reviews,
     r => r ? r : []
-)
+);
+
+export const getDestinationImages = createSelector(
+    state => state.firestore.ordered.destinationImages,
+    i => i ? i[0].urls : []
+);

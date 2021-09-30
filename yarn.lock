@@ -5516,6 +5516,11 @@ react-native-gesture-handler@^1.10.3:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-grid-image-viewer@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-grid-image-viewer/-/react-native-grid-image-viewer-1.2.2.tgz#7238fa7cc98e9b92d05edf42279753124fc165cd"
+  integrity sha512-1wRyHoVPronbt9K2cOR27Ks82P+s3FUp/EUXY3MJxiM3rKeo/lF+AKbecIPLQdiBFmDzMeYnIP865sOpo3S7KQ==
+
 react-native-image-gallery@^2.1.5:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/react-native-image-gallery/-/react-native-image-gallery-2.1.5.tgz#f524b92ef7284d30ffbbd63f93019e0647e23229"
@@ -5531,6 +5536,11 @@ react-native-image-slider-box@^1.1.8:
   integrity sha512-LqyNhAHaUFxC+z6SQGMIwgyor/6ZT47nnUQoYZLscU5i1KbsxuMhc+u2UCpd5qfJENEZFB9EVOaRC+aa+p8Zwg==
   dependencies:
     react-native-snap-carousel latest
+
+react-native-image-viewing@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-image-viewing/-/react-native-image-viewing-0.2.0.tgz#3c0bc67cfb9aa7607cec632139d7ef4c45e07e4e"
+  integrity sha512-j2JXv86WRXGNme4LPsNCJ/2MgX+oVbmJ5ZLbGrYbKXcCPe9OshqlQI5L3SdbAxWu/F5pubcMaXp0zoYNaZVuzA==
 
 react-native-maps@^0.29.3:
   version "0.29.3"

@@ -60,6 +60,7 @@ const Category = ({ route }) => {
             {destinations && destinations.length > 0 ? destinations.map(d => 
             <ScrollView>
                 <DestinationCard
+                    key = {d.id}
                     destination = {d}
                 /> 
             </ScrollView>

@@ -31,7 +31,19 @@ export default {
             name: "activities"
         },
         gallery: {
-            name: 'gallery'
+            name: 'gallery',
+            images: {
+                name: 'images',
+                urls: {
+                    name: 'urls'
+                }
+            },
+            videos: {
+                name: 'videos',
+                urls: {
+                    name: 'urls'
+                }
+            }
         },
         reviews: {
             name: 'reviews'
