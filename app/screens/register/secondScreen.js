@@ -8,17 +8,21 @@ import {
   Dimensions,
   TouchableWithoutFeedback
 } from 'react-native';
-import { Button, CheckBox, Input, useTheme, Icon } from '@ui-kitten/components';
+import { Button, CheckBox, Input, useTheme, Icon, Spinner } from '@ui-kitten/components';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import SvgUri from 'react-native-svg-uri';
 import Error from '../../components/common/Error';
 import { GREY, DARKGREY, PRIMARY, WHITE, BLACK } from './../../theme/colors';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserRegisteringStatus, register } from '../../store/entities/users';
 
 
 const RegisterSecond = ({ route, navigation }) => {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const registering = useSelector(getUserRegisteringStatus);
 
 
   const formik = {
@@ -56,10 +60,18 @@ const RegisterSecond = ({ route, navigation }) => {
             initialValues={formik.initialValues}
             validationSchema={formik.validationSchema}
             onSubmit={(values) => {
-              console.log({
-                ...values,
-                ...route.params
-              });
+              const credentials = { email: route.params.email, password: values.password };
+              const profile = { 
+                firstName: route.params.firstName, 
+                lastName: route.params.lastName,
+                enabled: true,
+                userRole: {
+                  admin: false,
+                  traveller: true
+                }
+              };
+
+              dispatch(register(credentials, profile));
             }}
           >
             {({ handleChange, handleSubmit, values, errors }) => (<View style={styles.registerBox}>
@@ -94,7 +106,7 @@ const RegisterSecond = ({ route, navigation }) => {
                 size='small'
                 onPress={handleSubmit}
                 style={styles.button}>
-                {(evaPro) => <Text evaProps style={styles.buttonText}>Register</Text>}
+                {(evaPro) => <Text evaProps style={styles.buttonText}>{registering ? <Spinner status = 'basic'/> : 'Register'}</Text>}
               </Button>
             </View>)}
           </Formik>

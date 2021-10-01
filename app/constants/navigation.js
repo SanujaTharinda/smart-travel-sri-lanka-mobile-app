@@ -18,6 +18,8 @@ export default {
     },
     destination: "Destination",
     tripPlanner: "TripPlanner",
+    myTrips: "MyTrips",
+    notifications: "Notifications",
     currencyConverter: "CurrencyConverter",
     about: "About",
     help: "Help",

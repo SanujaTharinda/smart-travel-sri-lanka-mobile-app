@@ -9,7 +9,7 @@ const Section = ({title, elements }) => {
                 <View style = {styles.container}>
                     <Text style = {styles.title}>{title}</Text>
                     {elements.map(e => 
-                        <Element key = {e.name} text = {e.name} icon = {e.icon} destination = {e.destination} screen = {e.screen ? e.screen : undefined}/>
+                        <Element key = {e.name} text = {e.name} icon = {e.icon} destination = {e.destination} screen = {e.screen ? e.screen : undefined} onPress = {e.onPress}/>
                     )}
                                         
                 </View>

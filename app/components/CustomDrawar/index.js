@@ -3,10 +3,12 @@ import { View,Image, StyleSheet,} from 'react-native';
 import { DARKGREY } from '../../theme/colors';
 import Section from './Section';
 import {NAVIGATION } from '../../constants';
+import { useDispatch } from 'react-redux';
+import { signOut } from '../../store/auth';
 
 const profileElements = [
-    {name: "Login", icon: "log-in-outline", destination: NAVIGATION.login},
-    {name: "Register", icon: "person-add-outline", destination: NAVIGATION.register.navigator},
+   { name: "My Trips", icon: "shopping-bag-outline", destination:NAVIGATION.myTrips},
+   { name: "Notifications", icon: "bell-outline", destination:NAVIGATION.notifications}
 ];
 
 const navigateElements = [
@@ -23,6 +25,7 @@ const supportElements = [
 
 
 const CustomDrawar = () => {
+    const dispatch = useDispatch();
 
     return(<View style = {styles.container}>
                 <Image 
@@ -32,7 +35,7 @@ const CustomDrawar = () => {
                 <View style = {styles.sections}>
                     <Section
                         title = {"Profile"}
-                        elements = {profileElements}
+                        elements = {[...profileElements, {name: "Sign Out", icon: "log-out-outline", onPress: () => dispatch(signOut()) }]}
                     />
                     <View style = {styles.ruler}></View>
                     <Section

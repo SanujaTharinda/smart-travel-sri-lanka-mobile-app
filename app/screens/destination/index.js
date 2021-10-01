@@ -13,7 +13,7 @@ const destination = ({ route }) => {
   const { destination } = route.params;
   const renderScene = SceneMap({
     basicInfo: () => <BasicInfo destination = {destination}/>,
-    activities: Activities,
+    activities: () => <Activities destination = {destination}/>,
     gallery : () => <Gallery destination = {destination}/>,
   });
 

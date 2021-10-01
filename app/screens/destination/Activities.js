@@ -1,12 +1,31 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, ScrollView, Text } from 'react-native'
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect } from 'react-redux-firebase';
+import { collections } from '../../firebase';
+import { getActivities } from '../../store/entities/destinations';
+import Activity from './Activity';
 
 
-const Activities = () => {
+const Activities = ({ destination }) => {
+    useFirestoreConnect([
+        {
+            collection: collections.destinations.name,
+            doc: destination.id,
+            subcollections: [{
+                collection: 'activities'
+            }],
+            storeAs: 'activities'
+        }
+    ])
+
+    const activities = useSelector(getActivities);
+    console.log("Activities", activities);
     return (
-        <View>
-            <Text>Activities</Text>
-        </View>
+        <ScrollView>
+            {activities.map(a => <Activity key = {a.id} activity = {a}/>)}
+            
+        </ScrollView>
     )
 };
 

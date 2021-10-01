@@ -20,6 +20,14 @@ const TripPlanner = () => {
                     <Text style={styles.cardText}>Trip Planner</Text>
                 </Card>
             </TouchableOpacity>
+            <TouchableOpacity onPress= {() => navigator.navigate(NAVIGATION.myTrips)}>
+                <Card style={styles.card}>
+                    <SvgUri
+                        source={require('./../../../assets/home/travelGirl.svg')}
+                    />
+                    <Text style={styles.cardText}>Create Trips</Text>
+                </Card>
+            </TouchableOpacity>
         </View>);
 }
 

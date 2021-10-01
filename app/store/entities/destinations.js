@@ -27,3 +27,8 @@ export const getDestinationImages = createSelector(
     state => state.firestore.ordered.destinationImages,
     i => i ? i[0].urls : []
 );
+
+export const getActivities = createSelector(
+    state => state.firestore.ordered.activities,
+    a => a ? a : []
+);

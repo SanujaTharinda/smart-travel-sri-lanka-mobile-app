@@ -39,10 +39,12 @@ export const { userLoginRequested, userSuccessfullyLoggedIn, userLogInFailed } =
 */
 export const signIn = (email, password) => {
     return async (dispatch, getState, { getFirebase }) => {
+        console.log("Sign");
         try {
+            console.log("Signing In")
             dispatch(userLoginRequested());
             const firebase = getFirebase();
-            await firebase.auth().signInWithEmailAndPassword(email, password);
+            await firebase.login({email, password});
 
             dispatch(userSuccessfullyLoggedIn())
         } catch (e) {
@@ -78,4 +80,9 @@ export const getProfile = createSelector(
 export const getUserLoggingInStatus = createSelector(
     state => state.auth.loggingIn,
     s => s
+);
+
+export const getAuthError = createSelector(
+    state => state.auth.authError,
+    a => a
 );

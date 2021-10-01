@@ -14,11 +14,17 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { GREY, PRIMARY, WHITE, BLACK } from '../../theme/colors';
 import { NAVIGATION } from '../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import {  signIn, getUserLoggingInStatus, getAuthError } from '../../store/auth';
+import Spinner from './../../components/common/Spinner';
 
 
 const Login = ({ navigation }) => {
     const [checked, setChecked] = useState(false);
     const [secureTextEntry, setSecureTextEntry] = useState(true);
+    const dispatch = useDispatch();
+    const logging = useSelector(getUserLoggingInStatus);
+    const authError = useSelector(getAuthError);
 
     const formik = {
         initialValues: {
@@ -34,13 +40,6 @@ const Login = ({ navigation }) => {
                 .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/, "Password must contain minimum six characters, at least one letter, one number and one special character")
                 .required("Required field"),
         }),
-        onSubmit: ({ email, password }) => {
-            console.log({
-                email,
-                password,
-                rememberMe: checked
-            });
-        },
     };
 
     const renderIcon = (props) => (
@@ -61,7 +60,7 @@ const Login = ({ navigation }) => {
                 <Formik
                     initialValues={formik.initialValues}
                     validationSchema={formik.validationSchema}
-                    onSubmit={({ email, password }) => console.log(email, password)}
+                    onSubmit={({ email, password }) => dispatch(signIn(email,password))}
                 >
                     {({ handleChange, handleSubmit, values, errors }) => (
                         <View style={styles.loginBox}>
@@ -107,8 +106,9 @@ const Login = ({ navigation }) => {
                                 onPress={handleSubmit}
                                 title='submit'
                                 style={styles.button}>
-                                {(evaProps) => <Text evaProps style={styles.buttonText}>Login</Text>}
+                                {(evaProps) => <Text evaProps style={styles.buttonText}>{logging ?  'Logging' : 'Login'}</Text>}
                             </Button>
+                            {authError && <Text>{authError}</Text>}
                             <View style={styles.row}>
                                 <Text style={styles.account}>Don't Have An Account? </Text>
                                 <TouchableOpacity onPress={() => navigation.navigate(NAVIGATION.register.navigator)}>
