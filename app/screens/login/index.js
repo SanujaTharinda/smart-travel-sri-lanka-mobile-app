@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     ImageBackground,
     View,
@@ -8,19 +9,17 @@ import {
     TouchableWithoutFeedback,
     TouchableOpacity,
 } from 'react-native';
-import { Button, CheckBox, Input, Icon } from '@ui-kitten/components';
-import SvgUri from 'react-native-svg-uri';
+import { Button, Input, Icon } from '@ui-kitten/components';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { GREY, PRIMARY, WHITE, BLACK } from '../../theme/colors';
-import { NAVIGATION } from '../../constants';
-import { useDispatch, useSelector } from 'react-redux';
 import {  signIn, getUserLoggingInStatus, getAuthError } from '../../store/auth';
 import Spinner from './../../components/common/Spinner';
+import Logo from '../../components/common/Logo';
+import { GREY, PRIMARY, WHITE, BLACK } from '../../theme/colors';
+import { NAVIGATION } from '../../constants';
 
 
 const Login = ({ navigation }) => {
-    const [checked, setChecked] = useState(false);
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const dispatch = useDispatch();
     const logging = useSelector(getUserLoggingInStatus);
@@ -50,13 +49,7 @@ const Login = ({ navigation }) => {
 
     return (
         <ImageBackground source={require('./../../../assets/login-register.png')} style={styles.container}>
-            <View>
-                <View >
-                    <SvgUri
-                        width={Dimensions.get('window').width}
-                        source={require('./../../../assets/logo.svg')}
-                    />
-                </View>
+                <Logo/>
                 <Formik
                     initialValues={formik.initialValues}
                     validationSchema={formik.validationSchema}
@@ -90,15 +83,7 @@ const Login = ({ navigation }) => {
                             />
                             {errors.password && <Text style={styles.error}>{errors.password}</Text>}
                             <View style={styles.row}>
-                                <View>
-                                    <CheckBox
-                                        checked={checked}
-                                        status='primary'
-                                        onChange={nextChecked => setChecked(nextChecked)}
-                                    >
-                                        {(evaProps) => <Text style={styles.rememberMe}>  Remember Me</Text>}
-                                    </CheckBox>
-                                </View>
+                               
                                 <Text style={styles.link}>Forgot Password?</Text>
                             </View>
                             <Button
@@ -106,7 +91,7 @@ const Login = ({ navigation }) => {
                                 onPress={handleSubmit}
                                 title='submit'
                                 style={styles.button}>
-                                {(evaProps) => <Text evaProps style={styles.buttonText}>{logging ?  'Logging' : 'Login'}</Text>}
+                                {(evaProps) => <Text evaProps style={styles.buttonText}>{logging ?  <Spinner color = {WHITE}/> : 'Login'}</Text>}
                             </Button>
                             {authError && <Text>{authError}</Text>}
                             <View style={styles.row}>
@@ -117,10 +102,6 @@ const Login = ({ navigation }) => {
                             </View>
                         </View>)}
                 </Formik>
-
-
-            </View>
-
         </ImageBackground>
     );
 }
@@ -157,7 +138,7 @@ const styles = StyleSheet.create({
     },
     container: {
         height: Dimensions.get('screen').height,
-        paddingTop: Dimensions.get('screen').height * 0.05
+        paddingTop: Dimensions.get('screen').height * 0.07
     },
     error: {
         fontSize: 15,
@@ -188,7 +169,7 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     register: {
-        color: PRIMARY,
+        color: WHITE,
         fontWeight: 'bold',
         textDecorationLine: 'underline'
     },

@@ -1,26 +1,24 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   ImageBackground,
-  Image,
   View,
   Text,
   StyleSheet,
   Dimensions,
   TouchableWithoutFeedback
 } from 'react-native';
-import { Button, CheckBox, Input, useTheme, Icon, Spinner } from '@ui-kitten/components';
+import { Button,Input,Icon, Spinner } from '@ui-kitten/components';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import SvgUri from 'react-native-svg-uri';
 import Error from '../../components/common/Error';
-import { GREY, DARKGREY, PRIMARY, WHITE, BLACK } from './../../theme/colors';
-import { useDispatch, useSelector } from 'react-redux';
 import { getUserRegisteringStatus, register } from '../../store/entities/users';
+import { GREY, PRIMARY, WHITE, BLACK } from './../../theme/colors';
+import Logo from '../../components/common/Logo';
 
 
 const RegisterSecond = ({ route, navigation }) => {
   const dispatch = useDispatch();
-  const theme = useTheme();
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const registering = useSelector(getUserRegisteringStatus);
 
@@ -50,12 +48,7 @@ const RegisterSecond = ({ route, navigation }) => {
 
   return (
     <ImageBackground source={require('./../../../assets/login-register.png')} style={styles.container}>
-      <View>
-        <View>
-          <SvgUri
-            width={Dimensions.get('window').width}
-            source={require('./../../../assets/logo.svg')}
-          />
+          <Logo/>
           <Formik
             initialValues={formik.initialValues}
             validationSchema={formik.validationSchema}
@@ -110,10 +103,6 @@ const RegisterSecond = ({ route, navigation }) => {
               </Button>
             </View>)}
           </Formik>
-        </View>
-
-      </View>
-
     </ImageBackground>
   );
 }
@@ -135,7 +124,7 @@ const styles = StyleSheet.create({
   },
   container: {
     height: Dimensions.get('screen').height,
-    paddingTop: Dimensions.get('screen').height * 0.05
+    paddingTop: Dimensions.get('screen').height * 0.07
   },
   input: {
     marginBottom: Dimensions.get('screen').height * 0.02,

@@ -1,26 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   ImageBackground,
-  Image,
   View,
   Text,
   StyleSheet,
   Dimensions
 } from 'react-native';
-import { Button, Input, useTheme } from '@ui-kitten/components';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import { Button, Input} from '@ui-kitten/components';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import SvgUri from 'react-native-svg-uri';
+import Error from '../../components/common/Error';
+import Logo from '../../components/common/Logo';
 import { GREY, PRIMARY, WHITE, BLACK } from './../../theme/colors';
 import { NAVIGATION } from './../../constants';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Error from '../../components/common/Error';
-import { useNavigation } from '@react-navigation/native';
 
 
 const RegisterFirst = () => {
   const navigation = useNavigation();
-  const theme = useTheme();
 
   const formik = {
     initialValues: {
@@ -35,25 +33,13 @@ const RegisterFirst = () => {
         .required("Required field"),
       email: Yup.string()
         .email("Invalid email address")
-        .required("Required field"),
-      // password: Yup.string()
-      //   .min(6, "Password must contain more than 6 characters")
-      //   .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/, "Password must contain minimum six characters, at least one letter, one number and one special character")
-      //   .required("Required field"),
-      // repeatPassword: Yup.string()
-      //   .oneOf([Yup.ref('password')], 'Password must be the same!')
-      //   .required('Required!'),
+        .required("Required field")
     })
   };
 
   return (
     <ImageBackground source={require('./../../../assets/login-register.png')} style={styles.container}>
-      <View>
-        <View>
-          <SvgUri
-            width={Dimensions.get('window').width}
-            source={require('./../../../assets/logo.svg')}
-          />
+          <Logo/>
           <Formik
             initialValues={formik.initialValues}
             validationSchema={formik.validationSchema}
@@ -111,10 +97,6 @@ const RegisterFirst = () => {
               </View>
             </View>)}
           </Formik>
-        </View>
-
-      </View>
-
     </ImageBackground>
   );
 }
@@ -136,7 +118,7 @@ const styles = StyleSheet.create({
   },
   container: {
     height: Dimensions.get('screen').height,
-    paddingTop: Dimensions.get('screen').height * 0.05,
+    paddingTop: Dimensions.get('screen').height * 0.07,
   },
   input: {
     marginTop: Dimensions.get('screen').height * 0.01,
@@ -163,7 +145,7 @@ const styles = StyleSheet.create({
     marginBottom: Dimensions.get('screen').height * 0.02
   },
   login: {
-    color: PRIMARY,
+    color: WHITE,
     fontWeight: 'bold',
     textDecorationLine: 'underline'
   },
