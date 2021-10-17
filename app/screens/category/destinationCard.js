@@ -46,22 +46,27 @@ export default DestinationCard;
 
 const styles = StyleSheet.create({
     card: {
-        borderRadius: 30,
-        elevation: 4,
         minHeight: Dimensions.get('screen').height * 0.2,
         width: '95%',
         flexDirection: 'row',
-        marginVertical: 15
+        elevation: 2,
+        marginBottom: 10,
+        borderRadius: 20
     },
     cardContainer: {
-        alignItems: 'center'
+        alignItems: 'center',
+        flex: 1,  
+        padding: 2, 
+        borderRadius: 20
     },
     detailsContainer: {
         width: '65%',
         height: '100%',
         paddingLeft: 10,
         justifyContent: 'space-around',
-        backgroundColor: GREY
+        backgroundColor: GREY,
+        borderBottomRightRadius: 20,
+        borderTopRightRadius: 20
     },
     imageContainer: {
         width: '35%',

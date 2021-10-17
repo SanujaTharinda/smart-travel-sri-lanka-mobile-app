@@ -8,7 +8,6 @@ import { getAuth } from "../store/auth";
 
 const RootNavigator = () => {
     const auth = useSelector(getAuth);
-    console.log(auth.isLoaded)
     return (
         <NavigationContainer>
            {!auth.isEmpty ?  <AppNavigator /> : <AuthNavigator/>}

@@ -20,7 +20,6 @@ const Activities = ({ destination }) => {
     ])
 
     const activities = useSelector(getActivities);
-    console.log("Activities", activities);
     return (
         <ScrollView>
             {activities.map(a => <Activity key = {a.id} activity = {a}/>)}

@@ -18,7 +18,6 @@ const BasicInfo = ({ destination }) => {
     } 
     ]);
     const reviews = useSelector(getReviews);
-    console.log("Reviews", reviews)    
 
     return (
         <ScrollView>

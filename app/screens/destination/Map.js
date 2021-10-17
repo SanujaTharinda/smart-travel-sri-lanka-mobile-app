@@ -3,7 +3,6 @@ import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 export default function Map({ location }) {
-    console.log("Location",typeof(parseFloat(location[0])))
   return (
     <View style={styles.container}>
       <MapView style={styles.map} initialRegion = {{

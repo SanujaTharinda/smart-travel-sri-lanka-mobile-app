@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Image, Dimensions, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card } from '@ui-kitten/components';
-import SvgUri from 'react-native-svg-uri';
 import { PRIMARY, WHITE, GREY } from '../../theme/colors';
 import { useNavigation } from '@react-navigation/native';
 import { NAVIGATION } from '../../constants';
@@ -11,21 +10,22 @@ const TripPlanner = () => {
     const navigator = useNavigation();
     return (
         <View style={styles.container}>
-            <TouchableOpacity style = {{width: '100%'}} onPress = {() => navigator.navigate(NAVIGATION.tripPlanner)}>
+            <TouchableOpacity style = {styles.touchableElement} onPress = {() => navigator.navigate(NAVIGATION.tripPlanner)}>
                 <Card style={styles.card}>
-                    <SvgUri
-                        width = {'100%'}
-                        source={require('../../../assets/home/suitcase.svg')}
+                    <Image
+                        style = {styles.image}
+                        source={require('../../../assets/home/suitcase.png')}
                     />
                     <Text style={styles.cardText}>Trip Planner</Text>
                 </Card>
             </TouchableOpacity>
-            <TouchableOpacity onPress= {() => navigator.navigate(NAVIGATION.myTrips)}>
+            <TouchableOpacity style = {styles.touchableElement} onPress= {() => navigator.navigate(NAVIGATION.myTrips)}>
                 <Card style={styles.card}>
-                    <SvgUri
-                        source={require('./../../../assets/home/travelGirl.svg')}
+                    <Image
+                        style = {styles.image}
+                        source={require('./../../../assets/home/travelGirl.png')}
                     />
-                    <Text style={styles.cardText}>Create Trips</Text>
+                    <Text style={styles.cardText}>My Trips</Text>
                 </Card>
             </TouchableOpacity>
         </View>);
@@ -40,6 +40,8 @@ const styles = StyleSheet.create({
         backgroundColor: PRIMARY,
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 20,
+        elevation: 5
     },
     cardText: {
         color: WHITE,
@@ -47,8 +49,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     container: {
-        backgroundColor: GREY,
-        width: '100%',
+        flex: 1,
         height: Dimensions.get('window').height * 0.5,
         marginTop: 20,
         marginBottom: 20,
@@ -57,5 +58,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
+    touchableElement: {
+        flex: 1, 
+        justifyContent: 'center',
+        elevation: 10
+    },
+    image: {
+        width: Dimensions.get('screen').width * 0.3,
+        height: "70%"
+    }
 
 })

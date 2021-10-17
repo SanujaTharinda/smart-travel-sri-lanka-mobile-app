@@ -26,7 +26,6 @@ const ImageGallery = ({ destination }) => {
     ]);
 
     const images = useSelector(getDestinationImages);
-    console.log("Images",images)
 
     return (<>
         {images && images.length > 0 ? <GridImageView data={images} /> : <NoData text = {'Images'}/>}</>

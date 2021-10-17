@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';
+import 'firebase/functions';
 import collections from './collections';
 
 
@@ -31,8 +32,11 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
+
+
 export const auth = firebase.auth();
 export const database = firebase.firestore();
+export const functions = firebase.functions();
 export const FieldValue = firebase.firestore.FieldValue;
 export default firebase;
 

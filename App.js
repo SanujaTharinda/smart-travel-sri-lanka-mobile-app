@@ -1,4 +1,5 @@
 import React from "react";
+import {Platform, InteractionManager} from 'react-native';
 import RootNavigator from "./app/navigation";
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
@@ -10,6 +11,7 @@ import { createFirestoreInstance } from 'redux-firestore';
 import createStore from './app/store/configureStore';
 import firebase, { rrfConfig } from './app/firebase';
 
+require('./app/utils/resolveTimeoutError');
 require('./app/firebase');
 
 const store = createStore();

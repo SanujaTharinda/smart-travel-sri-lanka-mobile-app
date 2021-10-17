@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView,StyleSheet, Text} from 'react-native';
+import { ScrollView,StyleSheet, Text, View} from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 import DestinationCard from './destinationCard';
@@ -7,10 +7,12 @@ import { Spinner } from '../../components/common/Spinner';
 import { collections } from './../../firebase';
 import { getPublishedDestinationsByCategory } from '../../store/entities/destinations';
 import NoResults from '../../components/common/NoResults';
+import { FlatList } from 'react-native-gesture-handler';
+import Seperator from '../../components/common/Seperator';
 
 
 
-const destinations = [
+const destinationsMock = [
     {
         id: 1,
         data: [{
@@ -53,26 +55,22 @@ const Category = ({ route }) => {
         collections.destinations.name
     ]);
     const destinations = useSelector(getPublishedDestinationsByCategory(category.title));
-    console.log(destinations)
 
     return (
-        <ScrollView style={styles.container}>
-            {destinations && destinations.length > 0 ? destinations.map(d => 
-            <ScrollView>
-                <DestinationCard
-                    key = {d.id}
-                    destination = {d}
-                /> 
-            </ScrollView>
-            ): destinations ? <NoResults/> : <Spinner/>}
-        </ScrollView>
+       <FlatList
+            style = {styles.container}
+            data = {destinations}
+            keyExtractor = {d => d.id}
+            renderItem = {({ item }) => <DestinationCard destination = {item}/>}
+            ItemSeparatorComponent = {Seperator}
+       />
     );
 }
 
 export default Category;
 
 const styles = StyleSheet.create({
-
-});
-
-
+    container: {
+        marginTop: 20
+    }
+})

@@ -14,6 +14,7 @@ import { PRIMARY } from './../theme/colors';
 import CustomDrawar from "../components/CustomDrawar";
 import MyTrips from "../screens/myTrips";
 import Notifications from "../screens/notifications";
+import Profile from "../screens/profile";
 
 const Drawer = createDrawerNavigator();
 
@@ -37,6 +38,7 @@ const DrawerNavigator = () => {
             <Drawer.Screen options={{ headerShown: false }} name={NAVIGATION.register.navigator} component={RegisterNavigator} />
             <Drawer.Screen name = {NAVIGATION.myTrips} component = {MyTrips}/>
             <Drawer.Screen name = {NAVIGATION.notifications} component = {Notifications}/>
+            <Drawer.Screen name = {NAVIGATION.profile} component = {Profile}/>
             <Drawer.Screen name={NAVIGATION.about} component={About} />
             <Drawer.Screen name={NAVIGATION.help} component={Help} />
             <Drawer.Screen name={NAVIGATION.settings} component={Settings} />

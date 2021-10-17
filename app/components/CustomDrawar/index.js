@@ -8,19 +8,20 @@ import { signOut } from '../../store/auth';
 
 const profileElements = [
    { name: "My Trips", icon: "shopping-bag-outline", destination:NAVIGATION.myTrips},
-   { name: "Notifications", icon: "bell-outline", destination:NAVIGATION.notifications}
+   { name: "Notifications", icon: "bell-outline", destination:NAVIGATION.notifications},
+   { name: "Profile", icon: "person-outline", destination:NAVIGATION.profile}
 ];
 
 const navigateElements = [
     {name: "Home", icon: "home-outline", destination: NAVIGATION.home.navigator, screen: NAVIGATION.home.screen},
     {name: "Trip Planner", icon: "globe-2-outline", destination: NAVIGATION.tripPlanner},
-    {name: "Currency Converter", icon: "pricetags", destination: NAVIGATION.currencyConverter},
+    // {name: "Currency Converter", icon: "pricetags", destination: NAVIGATION.currencyConverter},
 ];
 
 const supportElements = [
     {name: "About", icon: "info-outline", destination: NAVIGATION.about},
     {name: "Help", icon: "question-mark-circle-outline", destination: NAVIGATION.help},
-    {name: "Settings", icon: "settings-2-outline", destination: NAVIGATION.settings},
+    // {name: "Settings", icon: "settings-2-outline", destination: NAVIGATION.settings},
 ];
 
 
