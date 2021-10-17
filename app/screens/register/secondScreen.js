@@ -83,7 +83,7 @@ const RegisterSecond = ({ route, navigation }) => {
               />
               {errors.password && <Error error={errors.password} />}
               <Input
-                textContentType='repeatPassword'
+                textContentType='password'
                 size='large'
                 textStyle={{ color: BLACK, height: 40 }}
                 value={values.repeatPassword}

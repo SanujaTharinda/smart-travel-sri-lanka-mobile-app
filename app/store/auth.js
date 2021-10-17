@@ -39,13 +39,10 @@ export const { userLoginRequested, userSuccessfullyLoggedIn, userLogInFailed } =
 */
 export const signIn = (email, password) => {
     return async (dispatch, getState, { getFirebase }) => {
-        console.log("Sign");
         try {
-            console.log("Signing In")
             dispatch(userLoginRequested());
             const firebase = getFirebase();
             await firebase.login({email, password});
-
             dispatch(userSuccessfullyLoggedIn())
         } catch (e) {
             dispatch(userLogInFailed())
