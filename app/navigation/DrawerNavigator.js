@@ -2,7 +2,6 @@ import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { About, 
         Login,
-        TripPlanner,
         CurrencyConverter,
         Help,
         Settings
@@ -10,6 +9,7 @@ import { About,
 import { NAVIGATION } from '../constants'
 import RegisterNavigator from "./RegisterNavigator";
 import HomeNavigator from './HomeNavigator';
+import TripPlannerNavigator from "./TripPlannerNavigator";
 import { PRIMARY } from './../theme/colors';
 import CustomDrawar from "../components/CustomDrawar";
 import MyTrips from "../screens/myTrips";
@@ -42,7 +42,7 @@ const DrawerNavigator = () => {
             <Drawer.Screen name={NAVIGATION.about} component={About} />
             <Drawer.Screen name={NAVIGATION.help} component={Help} />
             <Drawer.Screen name={NAVIGATION.settings} component={Settings} />
-            <Drawer.Screen name={NAVIGATION.tripPlanner} component={TripPlanner} />
+            <Drawer.Screen name={NAVIGATION.tripPlanner.navigator} component={TripPlannerNavigator} />
             <Drawer.Screen name={NAVIGATION.currencyConverter} component={CurrencyConverter} />
         </Drawer.Navigator>
     );

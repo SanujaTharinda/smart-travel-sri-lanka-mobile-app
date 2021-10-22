@@ -17,7 +17,11 @@ export default {
 
     },
     destination: "Destination",
-    tripPlanner: "TripPlanner",
+    tripPlanner: {
+        navigator: "TripPlanner",
+        first: "TripPlannerFirst",
+        second: "TripPlannerSecond"
+    },
     myTrips: "MyTrips",
     notifications: "Notifications",
     currencyConverter: "CurrencyConverter",

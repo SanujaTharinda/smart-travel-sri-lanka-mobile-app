@@ -10,7 +10,7 @@ const TripPlanner = () => {
     const navigator = useNavigation();
     return (
         <View style={styles.container}>
-            <TouchableOpacity style = {styles.touchableElement} onPress = {() => navigator.navigate(NAVIGATION.tripPlanner)}>
+            <TouchableOpacity style = {styles.touchableElement} onPress = {() => navigator.navigate(NAVIGATION.tripPlanner.navigator, {screen: NAVIGATION.tripPlanner.first})}>
                 <Card style={styles.card}>
                     <Image
                         style = {styles.image}

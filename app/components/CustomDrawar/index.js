@@ -14,7 +14,7 @@ const profileElements = [
 
 const navigateElements = [
     {name: "Home", icon: "home-outline", destination: NAVIGATION.home.navigator, screen: NAVIGATION.home.screen},
-    {name: "Trip Planner", icon: "globe-2-outline", destination: NAVIGATION.tripPlanner},
+    {name: "Trip Planner", icon: "globe-2-outline", destination: NAVIGATION.tripPlanner.navigator, screen: NAVIGATION.tripPlanner.first},
     // {name: "Currency Converter", icon: "pricetags", destination: NAVIGATION.currencyConverter},
 ];
 
