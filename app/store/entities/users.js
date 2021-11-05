@@ -10,6 +10,7 @@ const slice = createSlice({
         creatingTrip: false,
         createTripSuccessfull: false,
         createTripError: null,
+        createdTrip: null
     },
     reducers: {
         //Events -> Event Handlers
@@ -40,9 +41,13 @@ const slice = createSlice({
             users.createTripError = null;
             users.creatingTrip = false;
             users.createTripSuccessfull = true;
+            users.createdTrip = null;
         },
         createdTripSuccessStatusChanged(users, action){
             users.createTripSuccessfull = action.payload;
+        },
+        createdTripSet(users, action){
+            users.createdTrip = action.payload;
         }
     }
 });
@@ -58,7 +63,8 @@ export const {
     createTripRequested,
     createTripFailed,
     createTripSucceeded,
-    createdTripSuccessStatusChanged
+    createdTripSuccessStatusChanged,
+    createdTripSet
 } = slice.actions;
 
 
@@ -106,6 +112,12 @@ export const changeCreatedTripStatus = (status) => {
     }
 };
 
+export const setCreatedTrip = (created) => {
+    return ( dispatch ) => {
+        dispatch(createdTripSet(created));
+    }
+};
+
 
 //Selectors
 export const getUsersList = createSelector(
@@ -132,6 +144,11 @@ export const getTripCreatingError = createSelector(
 export const getTripCreatedStatus = createSelector(
     state => state.users,
     u => u.createTripSuccessfull
+);
+
+export const getCreatedTrip = createSelector(
+    state => state.users,
+    u => u.createdTrip
 );
 
 

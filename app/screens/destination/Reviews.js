@@ -8,7 +8,7 @@ const Reviews = ({ reviews }) => {
 
     return(
         <>
-            {reviews && reviews.length > 0 ? reviews.map(r => <Review review = {r}/>) : <NoData text = {"Reviews"}/>}
+            {reviews && reviews.length > 0 ? reviews.map((r, index) => <Review review = {r} key = {index}/>) : <NoData text = {"Reviews"}/>}
         </>
     )
 };

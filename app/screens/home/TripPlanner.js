@@ -19,7 +19,7 @@ const TripPlanner = () => {
                     <Text style={styles.cardText}>Trip Planner</Text>
                 </Card>
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.touchableElement} onPress= {() => navigator.navigate(NAVIGATION.myTrips)}>
+            <TouchableOpacity style = {styles.touchableElement} onPress= {() => navigator.navigate(NAVIGATION.myTrips.navigator)}>
                 <Card style={styles.card}>
                     <Image
                         style = {styles.image}

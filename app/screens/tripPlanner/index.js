@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import {
   ImageBackground,
@@ -18,6 +19,7 @@ import SecondStep from './SecondStep';
 import ThirdStep from './ThirdStep';
 import TripPlan from './TripPlan';
 import { NAVIGATION } from '../../constants';
+import { getCreatedTrip, setCreatedTrip } from '../../store/entities/users';
 
 const travelModes = [
   "Bike",
@@ -26,6 +28,7 @@ const travelModes = [
 
 const TripPlannerFirst = () => {
   const navigator = useNavigation();
+  const dispatch = useDispatch();
 
   const [ travelMode, setTravelMode ] = useState(travelModes[0]);
   const [ startDate, setStartDate ] = useState(new Date());
@@ -36,8 +39,11 @@ const TripPlannerFirst = () => {
   const [ generated, setGenerated ] = useState(false);
   const [ generatedPlan, setGeneratedPlan ] = useState({});
 
+  const createdTrip = useSelector(getCreatedTrip);
+
 
   const handleGenerate = async() => {
+    console.log("Created Trip", createdTrip);
         try {
             setGenerating(true);
             const response = await getDestinations(preferredCategories);
@@ -50,7 +56,7 @@ const TripPlannerFirst = () => {
               destinations
             });
             if(planResponse.success)setGeneratedPlan(planResponse.trip);
-            setGenerated(true);
+            dispatch(setCreatedTrip({...generatedPlan, startDate: startDate.toDateString(), endDate: endDate.toDateString() , travelMode}))
             setGenerating(false);      
         } catch (e) {
             setGenerating(false);
@@ -59,13 +65,12 @@ const TripPlannerFirst = () => {
   };
 
   const handleCreateTripClick = () => {
-        navigator.replace(NAVIGATION.tripPlanner.createTrip, { trip: {...generatedPlan, startDate: startDate.toDateString(), endDate: endDate.toDateString() , travelMode}})
-       
+        navigator.navigate(NAVIGATION.tripPlanner.createTrip);    
   };
 
   return(
     <>
-      {!generating && !generated ? <KeyboardAvoidingView 
+      {!generating && !createdTrip  ? <KeyboardAvoidingView 
         style={{ flex: 1}}
         behavior={Platform.OS === 'ios' ? 'padding' : "height"}
         keyboardShouldPersistTaps='always'

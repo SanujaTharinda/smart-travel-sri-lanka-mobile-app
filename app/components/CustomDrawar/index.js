@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { signOut } from '../../store/auth';
 
 const profileElements = [
-   { name: "My Trips", icon: "shopping-bag-outline", destination:NAVIGATION.myTrips},
+   { name: "My Trips", icon: "shopping-bag-outline", destination:NAVIGATION.myTrips.navigator},
    { name: "Notifications", icon: "bell-outline", destination:NAVIGATION.notifications},
    { name: "Profile", icon: "person-outline", destination:NAVIGATION.profile}
 ];

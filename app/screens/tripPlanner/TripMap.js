@@ -21,7 +21,7 @@ const TripMap = ({ start, destinations }) => {
                     <Marker coordinate = {{ latitude: start.latitude , longitude: start.longitude }} title = {"Start Here"}/>
                     {destinations.map((d, i) =>
                         <Marker
-                            key = {i}
+                            key = {"marker" + i.toString()}
                             coordinate = {{ latitude: Number(d.coords[0]), longitude: Number(d.coords[1]) }}
                             title = {(i + 1).toString()}
                             
@@ -32,9 +32,9 @@ const TripMap = ({ start, destinations }) => {
                         destination = {{latitude: Number(destinations[0].coords[0]), longitude:Number(destinations[0].coords[1])}}
                     />
                     {destinations.length > 1 ? destinations.map((d,i) =>{
-                        if((i === destinations.length - 1) || i === 0) return <></>;
+                        if((i === destinations.length - 1) || i === 0) return <React.Fragment key = {"direction" + i.toString()}></React.Fragment>;
                         return(<MyMapViewDirections
-                            key = {i}
+                            key = {"direction" + i.toString()}
                             origin = {{ latitude: Number(d.coords[0]), longitude: Number(d.coords[1]) }}
                             destination = {{latitude: Number(destinations[i + 1].coords[0]), longitude:Number(destinations[i + 1].coords[1])}}
                         />);

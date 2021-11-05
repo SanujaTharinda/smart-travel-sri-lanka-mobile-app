@@ -6,22 +6,23 @@ import { Button, Input } from '@ui-kitten/components';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { BLACK, GREY, PRIMARY, WHITE } from '../../theme/colors';
-import { createTrip, getTripCreatedStatus, getTripCreatingError, getTripCreatingStatus } from '../../store/entities/users';
+import { createTrip, getCreatedTrip, getTripCreatedStatus, getTripCreatingError, getTripCreatingStatus } from '../../store/entities/users';
 import Spinner from '../../components/common/Spinner';
 import AnimatedSuccess from '../../components/common/AnimatedSuccess';
 import { getAuth } from '../../store/auth';
 import { changeCreatedTripStatus } from '../../store/entities/users';
 import { NAVIGATION } from '../../constants';
 
-const CreateTripForm = ({ route }) => {
+const CreateTripForm = () => {
     const dispatch = useDispatch(); 
     const navigator = useNavigation();
 
-    const { trip } = route.params;
+
 
     const tripCreating = useSelector(getTripCreatingStatus);
     const tripCreatingError = useSelector(getTripCreatingError);
     const tripCreatedStatus = useSelector(getTripCreatedStatus);
+    const trip =  useSelector(getCreatedTrip);
 
     const auth = useSelector(getAuth);
 
@@ -71,7 +72,7 @@ const CreateTripForm = ({ route }) => {
                     )
                     }
                 </Formik>
-            </ImageBackground> : <AnimatedSuccess cleanUpAction = {() => dispatch(changeCreatedTripStatus(false))} navigate = {() => navigator.navigate(NAVIGATION.myTrips)} />}
+            </ImageBackground> : <AnimatedSuccess cleanUpAction = {() => dispatch(changeCreatedTripStatus(false))} navigate = {() => navigator.navigate(NAVIGATION.myTrips.navigator)} />}
         </>
     )
 };

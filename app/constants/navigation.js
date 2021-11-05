@@ -23,7 +23,10 @@ export default {
         destination: "Destination",
         createTrip: "CreateTripForm"
     },
-    myTrips: "MyTrips",
+    myTrips: {
+        navigator: "MyTrips",
+        first: "MyTripsFirst"
+    },
     notifications: "Notifications",
     currencyConverter: "CurrencyConverter",
     about: "About",

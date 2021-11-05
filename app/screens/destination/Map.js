@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: "hidden",
+    borderRadius: 20,
+    elevation: 2
   },
   map: {
     width: Dimensions.get('window').width * 0.9,
