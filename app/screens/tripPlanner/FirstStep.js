@@ -34,7 +34,7 @@ const FirstStep = ({ states, setters, travelModes }) => {
 };
 
 
-export default FirstStep;
+export default React.memo(FirstStep);
 
 const styles = StyleSheet.create({
     plannerBox: {

@@ -24,6 +24,7 @@ const SecondStep =  ({ startLocation, setStartLocation }) => {
       if(!startLocation){
         let location = await Location.getCurrentPositionAsync({});
         setUserLocation(location);
+        console.log(location)
       }
     })();
   }, []);
@@ -44,8 +45,6 @@ const SecondStep =  ({ startLocation, setStartLocation }) => {
           <GooglePlacesInput
               onSelect = {(location) => {
                 setUserLocation({...userLocation, coords: {...userLocation.coords,latitude: location.lat, longitude: location.lng}});
-                console.log("New Location: ", location);
-              
               }}
           />
           <View style = {styles.mapContainer}>
@@ -77,7 +76,7 @@ const SecondStep =  ({ startLocation, setStartLocation }) => {
   );
 };
 
-export default SecondStep;
+export default React.memo(SecondStep);
 
 const styles = StyleSheet.create({
   container: {
@@ -86,21 +85,21 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     marginTop: 4,
+    overflow: "hidden",
     flex: 1,
     backgroundColor: GREY,
     width: Dimensions.get('window').width * 0.93,
-    height: Dimensions.get('window').height * 0.38,
+    height: Dimensions.get('window').height * 0.35,
     borderRadius: 20,
-    padding: 10,
     elevation: 2,
-    alignItems: 'center'
+    alignItems: 'center',
   },  
   map: {
     width: '100%',
     height: '90%'
   },
   mapText: {
-    color: DARKGREY
+    color: BLACK
   },
   title: {
     fontSize: 20,

@@ -18,9 +18,11 @@
  */
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    users: { name: 'users' },
-    trips: {
-        name: 'trips'
+    users: { 
+        name: 'users',
+        trips: {
+            name: 'trips'
+        },
     },
     categories: {
         name: 'categories'

@@ -49,7 +49,7 @@ const ThirdStep = ({ setPreferredCategories }) => {
 };
 
 
-export default ThirdStep;
+export default React.memo(ThirdStep);
 
 const styles = StyleSheet.create({
     checkbox: {

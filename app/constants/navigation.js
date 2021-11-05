@@ -20,7 +20,8 @@ export default {
     tripPlanner: {
         navigator: "TripPlanner",
         first: "TripPlannerFirst",
-        second: "TripPlannerSecond"
+        destination: "Destination",
+        createTrip: "CreateTripForm"
     },
     myTrips: "MyTrips",
     notifications: "Notifications",

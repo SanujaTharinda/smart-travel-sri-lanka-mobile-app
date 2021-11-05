@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';
+//Functions
 import 'firebase/functions';
 import collections from './collections';
 
@@ -36,8 +37,12 @@ if (!firebase.apps.length) {
 
 export const auth = firebase.auth();
 export const database = firebase.firestore();
+//Functions
 export const functions = firebase.functions();
 export const FieldValue = firebase.firestore.FieldValue;
 export default firebase;
+
+//Functions 
+export const getDestinations = functions.httpsCallable('getPreferedDestinations');
 
 export { default as collections } from './collections';

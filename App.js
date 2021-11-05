@@ -13,6 +13,7 @@ import firebase, { rrfConfig } from './app/firebase';
 
 require('./app/utils/resolveTimeoutError');
 require('./app/firebase');
+require('./app/APIs/distanceMatrixAPI');
 
 const store = createStore();
 
