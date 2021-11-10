@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
     cardText: {
         color: WHITE,
         fontSize: 20,
-        marginTop: 10
+        marginTop: 10,
+        fontWeight: "bold"
     },
     container: {
         flex: 1,

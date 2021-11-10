@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Image, View, StyleSheet, Text, Dimensions} from 'react-native';
-import { Button,Card, Modal } from '@ui-kitten/components';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as ImagePicker from "expo-image-picker";
+import { Button,Card, Modal, Icon } from '@ui-kitten/components';
 import ElementRow from './ElementRow';
 import { getAuth, getProfile, getEditProfileStatus, editProfile, resetEditProfile } from "./../../store/auth";
-import { BLACK, GREY, PRIMARY, WHITE } from './../../theme/colors';
+import { BLACK, DARKGREY, GREY, PRIMARY, WHITE } from './../../theme/colors';
 import EditProfileForm from './EditProfileForm';
+import { database, storage } from '../../firebase';
+import Spinner from '../../components/common/Spinner';
 
 const Profile = () => {
     const profile = useSelector(getProfile);
@@ -15,6 +19,7 @@ const Profile = () => {
     console.log("Profile: ", profile);
     console.log("Auth: ", auth);
     console.log("Editing: ", profileEditing);
+    const [ uploading, setUploading ] = useState(false);
 
     const [ editFormVisible, setEditFormVisible ] = useState(false);
 
@@ -22,11 +27,57 @@ const Profile = () => {
         dispatch(editProfile(data));
     };
 
+    const handleEditImagePress = async() => {
+        try{
+            const result = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                quality: 1
+            });
+            if(!result.cancelled){
+                uploadImage(result.uri);
+            }
+        }catch(e){
+            console.log("Error Reading and Image", e);
+        }
+        
+    };
+
+    const uploadImage = async(uri) => {
+        try {
+            const response = await fetch(uri);
+            const blob = await response.blob();
+            const pathReference = storage.ref().child(`images/users/profilePhoto`);
+            setUploading(true);
+            await pathReference.put(blob);
+            const url = await pathReference.getDownloadURL();
+            await database.collection("users").doc(auth.uid).update({
+                photoURL: url
+            });
+            setUploading(false);
+        } catch (error) {
+            console.log("Error Uploading an Image", error);
+        }
+        
+    }
+
     return(
         <View style = {styles.container}>
             <View style = {styles.photoContainer}>
                 <Text style = {styles.title}>Profile</Text>
-                <Image source = {require("./../../../assets/icon.png")} style = {styles.image}/>
+                <TouchableOpacity onPress = {() => handleEditImagePress()}
+           
+            >
+                    {/* <Image source = {require("./../../../assets/profile/blankProfile.png")} style = {styles.image}/> */}
+                    <Image source = {profile.photoURL ? {uri: profile.photoURL} : require("./../../../assets/profile/blankProfile.png")} style = {styles.image}/>
+                    <View style = {styles.iconContainer}>
+                        {uploading ? <Spinner/> : <Icon
+                            name = {"camera-outline"}
+                            fill = {BLACK}
+                            style = {styles.icon}
+                        />}
+                    </View>
+                </TouchableOpacity>     
                 <Text style = {styles.name}>{profile.firstName + " " + profile.lastName}</Text>
             </View>
             <View style = {styles.detailsContainer}>
@@ -86,9 +137,7 @@ const styles = StyleSheet.create({
     photoContainer: {
         flex: 0.4,
         alignItems: "center",
-        paddingVertical: 25,
-        borderBottomColor: BLACK,
-        borderWidth: 0.3
+        paddingVertical: 25
     },
     detailsContainer: {
         flex: 1,
@@ -99,8 +148,15 @@ const styles = StyleSheet.create({
         paddingLeft: 40
     },
     icon: {
-        width: 25,
-        height: 25
+        width: 30,
+        height: 30
+    },
+    iconContainer: {
+        width: 30,
+        height: 30,
+        position: "absolute",
+        bottom: 20,
+        left: 70
     },
     image: {
         width: 100,

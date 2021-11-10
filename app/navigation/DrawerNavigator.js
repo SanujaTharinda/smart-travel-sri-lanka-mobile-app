@@ -15,20 +15,22 @@ import CustomDrawar from "../components/CustomDrawar";
 import Notifications from "../screens/notifications";
 import Profile from "../screens/profile";
 import MyTripsNavigator from "./MyTripsNavigator";
+import { useSelector } from "react-redux";
+import { getProfile } from "../store/auth";
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
+    const profile = useSelector(getProfile);
     return (
         <Drawer.Navigator
-            drawerContent = {() => <CustomDrawar/>}
+            drawerContent = {() => <CustomDrawar photo = {profile.photoURL}/>}
             screenOptions = {{
                 headerTintColor: PRIMARY,
                 headerTitle: "Smart Travel Sri Lanka",
                 headerTitleContainerStyle: {
                     marginLeft: 0
                 },
-
             }}
         >
             <Drawer.Screen

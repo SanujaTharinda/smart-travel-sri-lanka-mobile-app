@@ -4,6 +4,7 @@ import { Home } from './../screens';
 import { Event } from './../screens';
 import { NAVIGATION } from "../constants";
 import CategoryNavigator from "./CategoryNavigator";
+import { WHITE } from "../theme/colors";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +15,10 @@ const HomeNavigator = () => {
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
-                presentation: 'modal'
+                presentation: 'modal',
+                contentStyle: {
+                    backgroundColor: WHITE
+                }
             }}
         >
             <Stack.Screen name={NAVIGATION.home.screen} component={Home} />
