@@ -1,4 +1,5 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
+import moment from 'moment';
 import { collections } from '../../firebase';
 
 //Users Slice
@@ -96,12 +97,12 @@ export const createTrip = (data, auth) => {
                 startDate: new Date(startDate),
                 endDate: new Date(endDate),
                 travelMode,
-                destinations,
-                status: "In Future"
+                destinations
             });
             dispatch(createTripSucceeded());
         } catch (e) {
             dispatch(createTripFailed());
+            console.log(e);
         }
     }
 };
@@ -149,6 +150,26 @@ export const getTripCreatedStatus = createSelector(
 export const getCreatedTrip = createSelector(
     state => state.users,
     u => u.createdTrip
+);
+
+export const getTrips = createSelector(
+    state => state.firestore.ordered.trips,
+    trips => trips
+);
+
+export const getOngoingTrips = createSelector(
+    getTrips,
+    trips => trips ? trips.filter(t => moment().diff(moment(t.startDate.toDate()), "days") >=0 && moment(t.endDate.toDate()).diff(moment(), "days") >=0 ) : []
+);
+
+export const getInFutureTrips = createSelector(
+    getTrips,
+    trips => trips ? trips.filter(t => moment().diff(moment(t.startDate.toDate()), "days") < 0 ) : []
+);
+
+export const getPastTrips = createSelector(
+    getTrips,
+    trips => trips ? trips.filter(t => moment().diff(moment(t.endDate.toDate()), "days") > 0 ) : []
 );
 
 

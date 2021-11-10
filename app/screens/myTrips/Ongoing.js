@@ -1,23 +1,52 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { getOngoingTrips } from '../../store/entities/users';
 import Trip from './Trip';
+import TripPlan from './TripPlan';
+import { Spinner } from '@ui-kitten/components';
 
 export default function Ongoing() {
+    const trips = useSelector(getOngoingTrips);
+    const [ viewMoreTrip, setViewMoreTrip ] = useState(null);
+ 
+    
+    useEffect(() => {
+   
+    });
+
     return (
-        <View style = {styles.container}>
-            <Trip trip = {{
-                title: "University Vacation Team",
-                startDate: "September 26, 2021",
-                endDate: "September 29, 2021",
-                destinations: ["Sigiriya, Pidurangala"]
-            }}/>
-        </View>
+
+        <>
+        {trips ? 
+             <ScrollView style = {styles.container} contentContainerStyle = {styles.contentContainer}>
+             {viewMoreTrip ? 
+                     <TripPlan 
+                         plan = {{startLocation: viewMoreTrip.startLocation, tripDestinations: viewMoreTrip.destinations}}
+                         onGoBackPress = {() => setViewMoreTrip(null)}
+                 />: trips.map((t, i) => (
+                     <Trip 
+                         key = {"Ongoin" + i.toString()}
+                         onViewMorePress = {() => setViewMoreTrip(t)}
+                         trip = {{
+                             title: t.name,
+                             startDate: t.startDate.toDate().toDateString(),
+                             endDate: t.endDate.toDate().toDateString(),
+                             destinations: t.destinations.map(d => d.title)
+                         }}/>
+             ))}
+             </ScrollView> : <Spinner/>
+        }
+           
+        </>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+    },
+    contentContainer: {
+        alignItems: "center"
     }
 })

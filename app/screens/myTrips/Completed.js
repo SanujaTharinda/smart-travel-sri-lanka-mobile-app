@@ -1,29 +1,52 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { getPastTrips } from '../../store/entities/users';
 import Trip from './Trip';
+import TripPlan from './TripPlan';
+import { Spinner } from '@ui-kitten/components';
 
 export default function Completed() {
+    const trips = useSelector(getPastTrips);
+    const [ viewMoreTrip, setViewMoreTrip ] = useState(null);
+ 
+    
+    useEffect(() => {
+   
+    });
+
     return (
-        <View style = {styles.container}>
-            <Trip trip = {{
-                title: "AL Class Trip",
-                startDate: "September 26, 2016",
-                endDate: "September 29, 2016",
-                destinations: ["Nuwara Eliya"]
-            }}/>
-            <Trip trip = {{
-                title: "Family Christmas Vacation Trip",
-                startDate: "December 26, 2016",
-                endDate: " December 30, 2016",
-                destinations: ["Galle Fort, Pigeon Island"]
-            }}/>
-        </View>
+
+        <>
+        {trips ? 
+             <ScrollView style = {styles.container} contentContainerStyle = {styles.contentContainer}>
+             {viewMoreTrip ? 
+                     <TripPlan 
+                         plan = {{startLocation: viewMoreTrip.startLocation, tripDestinations: viewMoreTrip.destinations}}
+                         onGoBackPress = {() => setViewMoreTrip(null)}
+                 />: trips.map((t, i) => (
+                     <Trip 
+                         key = {"Ongoin" + i.toString()}
+                         onViewMorePress = {() => setViewMoreTrip(t)}
+                         trip = {{
+                             title: t.name,
+                             startDate: t.startDate.toDate().toDateString(),
+                             endDate: t.endDate.toDate().toDateString(),
+                             destinations: t.destinations.map(d => d.title)
+                         }}/>
+             ))}
+             </ScrollView> : <Spinner/>
+        }
+           
+        </>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+    },
+    contentContainer: {
+        alignItems: "center"
     }
 })

@@ -43,7 +43,7 @@ const TripPlannerFirst = () => {
 
 
   const handleGenerate = async() => {
-    console.log("Created Trip", createdTrip);
+    
         try {
             setGenerating(true);
             const response = await getDestinations(preferredCategories);
@@ -56,7 +56,8 @@ const TripPlannerFirst = () => {
               destinations
             });
             if(planResponse.success)setGeneratedPlan(planResponse.trip);
-            dispatch(setCreatedTrip({...generatedPlan, startDate: startDate.toDateString(), endDate: endDate.toDateString() , travelMode}))
+            dispatch(setCreatedTrip({...planResponse.trip, startDate: startDate.toDateString(), endDate: endDate.toDateString() , travelMode}));
+            console.log("Created Trip", {...planResponse.trip, startDate: startDate.toDateString(), endDate: endDate.toDateString() , travelMode});
             setGenerating(false);      
         } catch (e) {
             setGenerating(false);
@@ -145,7 +146,7 @@ const TripPlannerFirst = () => {
       </ImageBackground>
 
 
-      </KeyboardAvoidingView> : generating ? <AnimatedLoader/> : <TripPlan plan = {generatedPlan} onBackToPlannerPress = {() => setGenerated(false)} onCreateTripPress = {handleCreateTripClick}/>}
+      </KeyboardAvoidingView> : generating ? <AnimatedLoader/> : <TripPlan plan = {generatedPlan} onBackToPlannerPress = {() => dispatch(setCreatedTrip(null))} onCreateTripPress = {handleCreateTripClick}/>}
     </>
     
   );

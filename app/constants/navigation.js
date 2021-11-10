@@ -25,7 +25,8 @@ export default {
     },
     myTrips: {
         navigator: "MyTrips",
-        first: "MyTripsFirst"
+        first: "MyTripsFirst",
+        destination: "Destination"
     },
     notifications: "Notifications",
     currencyConverter: "CurrencyConverter",

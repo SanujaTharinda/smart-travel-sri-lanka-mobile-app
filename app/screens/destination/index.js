@@ -8,7 +8,7 @@ import { BLACK, DARKGREY, GREY, PRIMARY, WHITE } from '../../theme/colors';
 import Spinner from '../../components/common/Spinner';
 
 
-const destination = ({ route }) => {
+const Destination = ({ route }) => {
   const layout = useWindowDimensions();
   const { destination } = route.params;
   const renderScene = SceneMap({
@@ -43,7 +43,7 @@ const destination = ({ route }) => {
   );
 }
 
-export default destination;
+export default Destination;
 
 
 const styles = StyleSheet.create({
