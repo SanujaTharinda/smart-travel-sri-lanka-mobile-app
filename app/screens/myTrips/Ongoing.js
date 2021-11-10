@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
+import { isEmpty, isLoaded } from 'react-redux-firebase';
 import { getOngoingTrips } from '../../store/entities/users';
 import Trip from './Trip';
 import TripPlan from './TripPlan';
 import { Spinner } from '@ui-kitten/components';
+import AnimatedEmpty from '../../components/common/AnimatedEmpty';
 
-export default function Ongoing() {
+const Ongoing = () => {
     const trips = useSelector(getOngoingTrips);
     const [ viewMoreTrip, setViewMoreTrip ] = useState(null);
  
-    
-    useEffect(() => {
-   
-    });
-
     return (
 
         <>
-        {trips ? 
+        {isLoaded(trips) && !isEmpty(trips) ?
              <ScrollView style = {styles.container} contentContainerStyle = {styles.contentContainer}>
              {viewMoreTrip ? 
                      <TripPlan 
@@ -35,12 +32,13 @@ export default function Ongoing() {
                              destinations: t.destinations.map(d => d.title)
                          }}/>
              ))}
-             </ScrollView> : <Spinner/>
-        }
-           
+             </ScrollView> : !isLoaded(trips) ? <Spinner/> : <AnimatedEmpty message = {"No Ongoing Trips To Display..."}/>
+        }    
         </>
     )
-}
+};
+
+export default React.memo(Ongoing);
 
 const styles = StyleSheet.create({
     container: {

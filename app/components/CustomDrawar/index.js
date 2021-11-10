@@ -59,8 +59,7 @@ export default CustomDrawar;
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: "25%",
-        paddingTop: 50
+        height: "25%"
     },
     image: {
         width: 100, 
@@ -71,6 +70,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: PRIMARY,
+        paddingTop: 40,
+        paddingBottom: 40,
+        opacity: 1
     },
     sections: {
         paddingLeft: 20,

@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+import { isLoaded, isEmpty } from 'react-redux-firebase';
 import { getPastTrips } from '../../store/entities/users';
 import Trip from './Trip';
 import TripPlan from './TripPlan';
 import { Spinner } from '@ui-kitten/components';
+import AnimatedEmpty from '../../components/common/AnimatedEmpty';
 
-export default function Completed() {
+const Completed = () => {
     const trips = useSelector(getPastTrips);
     const [ viewMoreTrip, setViewMoreTrip ] = useState(null);
  
-    
-    useEffect(() => {
-   
-    });
-
     return (
-
         <>
-        {trips ? 
+        {isLoaded(trips) && !isEmpty(trips) ?
              <ScrollView style = {styles.container} contentContainerStyle = {styles.contentContainer}>
              {viewMoreTrip ? 
                      <TripPlan 
@@ -35,12 +31,13 @@ export default function Completed() {
                              destinations: t.destinations.map(d => d.title)
                          }}/>
              ))}
-             </ScrollView> : <Spinner/>
-        }
-           
+             </ScrollView> : !isLoaded(trips) ? <Spinner/> : <AnimatedEmpty message = {"No Completed Trips To Display..."}/>
+        }   
         </>
     )
-}
+};
+
+export default React.memo(Completed);
 
 const styles = StyleSheet.create({
     container: {
