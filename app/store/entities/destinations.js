@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import _ from 'lodash';
 
 export const getAllDestinations = createSelector(
     state => state.firestore.ordered.destinations,
@@ -9,6 +10,11 @@ export const getAllDestinations = createSelector(
 export const getPublishedDestinations = createSelector(
     getAllDestinations,
     destinations => destinations ? destinations.filter(d => d.published === true) : []
+);
+
+export const getPopularDestinations = createSelector(
+    getPublishedDestinations,
+    destinations =>  destinations.length > 0 ? _.orderBy(destinations, ['rating'],['desc']).slice(0,4) : destinations 
 );
 
 

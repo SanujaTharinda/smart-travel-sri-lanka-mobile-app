@@ -6,7 +6,7 @@ import { BLACK, PRIMARY, WHITE } from './../../theme/colors';
 import { useFirestoreConnect } from 'react-redux-firebase';
 import { collections } from '../../firebase';
 import { useSelector } from 'react-redux';
-import { getPublishedDestinations } from '../../store/entities/destinations';
+import { getPopularDestinations } from '../../store/entities/destinations';
 import { useNavigation } from '@react-navigation/native';
 import { NAVIGATION } from '../../constants';
 
@@ -17,8 +17,7 @@ const Header = ({images}) => {
     ]);
     const navigator = useNavigation();
 
-    const destinations = useSelector(getPublishedDestinations);
-
+    const destinations = useSelector(getPopularDestinations);
 
     return ( 
             <View style={styles.homeHeader}>
