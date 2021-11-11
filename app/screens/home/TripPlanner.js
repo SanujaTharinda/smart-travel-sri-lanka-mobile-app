@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, Dimensions, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Card } from '@ui-kitten/components';
 import { PRIMARY, WHITE, GREY } from '../../theme/colors';
 import { useNavigation } from '@react-navigation/native';
@@ -10,7 +10,7 @@ const TripPlanner = () => {
     const navigator = useNavigation();
     return (
         <View style={styles.container}>
-            <TouchableOpacity style = {styles.touchableElement} onPress = {() => navigator.navigate(NAVIGATION.tripPlanner.navigator, {screen: NAVIGATION.tripPlanner.first})}>
+            <TouchableWithoutFeedback style = {styles.touchableElement} onPress = {() => navigator.navigate(NAVIGATION.tripPlanner.navigator, {screen: NAVIGATION.tripPlanner.first})}>
                 <Card style={styles.card}>
                     <Image
                         style = {styles.image}
@@ -18,8 +18,8 @@ const TripPlanner = () => {
                     />
                     <Text style={styles.cardText}>Trip Planner</Text>
                 </Card>
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.touchableElement} onPress= {() => navigator.navigate(NAVIGATION.myTrips.navigator)}>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback style = {styles.touchableElement} onPress= {() => navigator.navigate(NAVIGATION.myTrips.navigator)}>
                 <Card style={styles.card}>
                     <Image
                         style = {styles.image}
@@ -27,7 +27,7 @@ const TripPlanner = () => {
                     />
                     <Text style={styles.cardText}>My Trips</Text>
                 </Card>
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
         </View>);
 }
 

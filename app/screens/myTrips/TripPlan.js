@@ -1,38 +1,50 @@
-import React from 'react';
+import React, { useState, } from 'react';
 import { ScrollView, View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Button } from '@ui-kitten/components';
 import TripMap from './TripMap';
 import TripLocation from './TripLocation';
 import { BLACK, WHITE } from '../../theme/colors';
+import CheckList from './CheckList';
 
-const TripPlan = ({ plan, onGoBackPress }) => {
+const TripPlan = ({ plan, onGoBackPress}) => {
+    const [ checkListView, setCheckListView ] = useState(false);
 
     return(
         <ScrollView style = {styles.container} contentContainerStyle = {styles.contentContainer}>
-            <View style = {styles.titleContainer}>
-                <Text style = {styles.title}>Your Plan</Text>
-            </View>
-            <TripMap
-                start = {plan.startLocation}
-                destinations = {plan.tripDestinations}  
-            />
-            <View style = {styles.locationsContainer}>
-                {plan.tripDestinations.map((d, i) => <TripLocation key = {i} location = {d}/>)}
-            </View>
-            
-            <View style = {styles.buttonsContainer}>
-                <Button
-                    onPress = {onGoBackPress}
-                    size='small'
-                    style={styles.button}>
-                        {(evaProps) => <Text {...evaProps} style={styles.buttonText}>Back To Trips</Text>}
-                </Button>
-            </View>
+            {checkListView ? <CheckList tripID = {plan.id} onBackPress = {() =>setCheckListView(false)}/> : 
+                <>
+                    <View style = {styles.titleContainer}>
+                        <Text style = {styles.title}>Your Plan</Text>
+                    </View>
+                    <TripMap
+                        start = {plan.startLocation}
+                        destinations = {plan.tripDestinations}  
+                    />
+                    <View style = {styles.locationsContainer}>
+                        {plan.tripDestinations.map((d, i) => <TripLocation key = {i} location = {d}/>)}
+                    </View>
+                
+                    <View style = {styles.buttonsContainer}>
+                        <Button
+                            onPress = {() => setCheckListView(true)}
+                            size='small'
+                            style={styles.button}>
+                                {(evaProps) => <Text {...evaProps} style={styles.buttonText}>View Checklist</Text>}
+                        </Button>
+                        <Button
+                            onPress = {onGoBackPress}
+                            size='small'
+                            style={styles.button}>
+                                {(evaProps) => <Text {...evaProps} style={styles.buttonText}>Back To Trips</Text>}
+                        </Button>
+                    </View>
+                </>  
+            }
         </ScrollView>);
 };
 
 
-export default TripPlan;
+export default React.memo(TripPlan);
 
 const styles = StyleSheet.create({
     button: {
@@ -57,7 +69,7 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         backgroundColor: WHITE,
-        paddingTop: 18
+        paddingTop: 18,
     },
     locationsContainer: {
         paddingLeft: 20,

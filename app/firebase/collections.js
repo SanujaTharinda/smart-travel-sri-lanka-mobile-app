@@ -21,7 +21,10 @@ export default {
     users: { 
         name: 'users',
         trips: {
-            name: 'trips'
+            name: 'trips',
+            checklists: {
+                name: "checklists"
+            }
         },
     },
     categories: {

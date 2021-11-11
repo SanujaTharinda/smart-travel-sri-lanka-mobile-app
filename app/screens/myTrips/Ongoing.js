@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
-import { isEmpty, isLoaded } from 'react-redux-firebase';
+import { isEmpty, isLoaded, } from 'react-redux-firebase';
 import { getOngoingTrips } from '../../store/entities/users';
 import Trip from './Trip';
 import TripPlan from './TripPlan';
@@ -11,7 +11,7 @@ import AnimatedEmpty from '../../components/common/AnimatedEmpty';
 const Ongoing = () => {
     const trips = useSelector(getOngoingTrips);
     const [ viewMoreTrip, setViewMoreTrip ] = useState(null);
- 
+
     return (
 
         <>
@@ -19,7 +19,7 @@ const Ongoing = () => {
              <ScrollView style = {styles.container} contentContainerStyle = {styles.contentContainer}>
              {viewMoreTrip ? 
                      <TripPlan 
-                         plan = {{startLocation: viewMoreTrip.startLocation, tripDestinations: viewMoreTrip.destinations}}
+                         plan = {{startLocation: viewMoreTrip.startLocation, tripDestinations: viewMoreTrip.destinations, id:viewMoreTrip.id, backpack: viewMoreTrip.backpack ? viewMoreTrip.backpack : []  }}
                          onGoBackPress = {() => setViewMoreTrip(null)}
                  />: trips.map((t, i) => (
                      <Trip 
@@ -32,7 +32,7 @@ const Ongoing = () => {
                              destinations: t.destinations.map(d => d.title)
                          }}/>
              ))}
-             </ScrollView> : !isLoaded(trips) ? <Spinner/> : <AnimatedEmpty message = {"No Ongoing Trips To Display..."}/>
+             </ScrollView> : isLoaded(trips) && isEmpty(trips) ? <AnimatedEmpty message = {"No Ongoing Trips To Display..."}/> : <Spinner/>
         }    
         </>
     )

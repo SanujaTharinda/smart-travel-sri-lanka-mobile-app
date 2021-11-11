@@ -18,7 +18,7 @@ const InFuture = () => {
              <ScrollView style = {styles.container} contentContainerStyle = {styles.contentContainer}>
              {viewMoreIndex ? 
                      <TripPlan 
-                         plan = {{startLocation: trips[viewMoreIndex].startLocation, tripDestinations: trips[viewMoreIndex].destinations}}
+                         plan = {{startLocation: trips[viewMoreIndex].startLocation, tripDestinations: trips[viewMoreIndex].destinations, id:trips[viewMoreIndex].id, backpack: trips[viewMoreIndex].backpack ? trips[viewMoreIndex].backpack : [] }}
                          onGoBackPress = {() => setViewMoreIndex(null)}
                  />: trips.map((t, i) => (
                      <Trip 

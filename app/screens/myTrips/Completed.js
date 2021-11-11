@@ -18,7 +18,7 @@ const Completed = () => {
              <ScrollView style = {styles.container} contentContainerStyle = {styles.contentContainer}>
              {viewMoreTrip ? 
                      <TripPlan 
-                         plan = {{startLocation: viewMoreTrip.startLocation, tripDestinations: viewMoreTrip.destinations}}
+                         plan = {{startLocation: viewMoreTrip.startLocation, tripDestinations: viewMoreTrip.destinations, id:viewMoreTrip.id, backpack: viewMoreTrip.backpack ? viewMoreTrip.backpack : []}}
                          onGoBackPress = {() => setViewMoreTrip(null)}
                  />: trips.map((t, i) => (
                      <Trip 
