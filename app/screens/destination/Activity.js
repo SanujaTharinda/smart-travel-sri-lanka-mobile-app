@@ -5,10 +5,10 @@ import { PRIMARY, BLACK } from '../../theme/colors';
 const Activity = ({activity}) => {
     return(
         <View style = {styles.container}>
-            <View style = {styles.titleContainer}>
+            {/* <View style = {styles.titleContainer}>
               <Text style = {styles.title}>{activity.name}</Text>
             </View>
-            <Text style = {styles.description}>{activity.description}</Text>
+            <Text style = {styles.description}>{activity.description}</Text> */}
         </View>
 
     )

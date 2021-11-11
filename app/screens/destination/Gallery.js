@@ -1,14 +1,9 @@
-import React, { useState } from 'react'
-import { View, Text } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import React from 'react';
 import GridImageView from 'react-native-grid-image-viewer';
 import { useSelector } from 'react-redux';
-import { useFirestoreConnect } from 'react-redux-firebase';
-import NoData from '../../components/common/NoData';
-import { collections } from '../../firebase';
+import { useFirestoreConnect, isLoaded } from 'react-redux-firebase';
 import { getDestinationImages } from '../../store/entities/destinations';
-import { GREY, WHITE } from '../../theme/colors';
-
+import AnimatedEmpty from "../../components/common/AnimatedEmpty";
 
 const ImageGallery = ({ destination }) => {
     useFirestoreConnect([
@@ -28,9 +23,10 @@ const ImageGallery = ({ destination }) => {
     const images = useSelector(getDestinationImages);
 
     return (<>
-        {images && images.length > 0 ? <GridImageView data={images} /> : <NoData text = {'Images'}/>}</>
+            {isLoaded(images) && images.length > 0 ? <GridImageView data={images} /> : <AnimatedEmpty message = "No Images To Display..."/>}
+        </>
     )
 };
 
 
-export default ImageGallery;
+export default React.memo(ImageGallery);

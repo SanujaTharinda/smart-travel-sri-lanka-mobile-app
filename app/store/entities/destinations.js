@@ -31,7 +31,7 @@ export const getReviews = createSelector(
 
 export const getDestinationImages = createSelector(
     state => state.firestore.ordered.destinationImages,
-    i => i ? i[0].urls : []
+    i => i && i[0] && i[0].urls ? i[0].urls : []
 );
 
 export const getActivities = createSelector(
