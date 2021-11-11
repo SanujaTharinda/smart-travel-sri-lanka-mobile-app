@@ -1,25 +1,24 @@
 import React from 'react'
 import { ScrollView ,View, Text, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAuth } from '../../store/auth';
+import { getChecklistUpdatingStatus, getUnReadNotifications, markRead } from '../../store/entities/users';
 import { GREY } from '../../theme/colors';
 import Notification from './Notification';
 
 export default function Unread() {
+    const dispatch = useDispatch();
+    const unread = useSelector(getUnReadNotifications);
+    const auth = useSelector(getAuth);
+    const updating = useSelector(getChecklistUpdatingStatus);
+
+    const handleMark = (u) => {
+        dispatch(markRead(auth, u.id));
+    };
+
     return (
         <ScrollView style = {styles.container}>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
+          {unread.map((u,i) => <Notification onRead= {() => handleMark(u)} key = {"unread-notify" + i.toString()} content = {u.content} isRead = {false} updating = {updating}/>)}
         </ScrollView>
     )
 };

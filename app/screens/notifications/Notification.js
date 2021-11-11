@@ -1,11 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { GREY } from '../../theme/colors';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { Button, Text } from '@ui-kitten/components';
+import { BLACK, GREY, WHITE } from '../../theme/colors';
+import Spinner from '../../components/common/Spinner';
 
-const Notification = () => {
+const Notification = ({ content, isRead, onRead, updating = false }) => {
     return(
         <View style = {styles.notificationContainer}>
-            <Text style = {styles.notification}>Hi! University vacation trip starts tomorrow</Text>
+            <Text style = {styles.notification}>{content}</Text>
+            {!isRead && <Button
+                onPress = {onRead ? onRead : () => console.log("Pressed")}
+                size='small'
+                title='submit'
+                style={styles.button}>
+                {(evaProps) => <Text evaProps style={styles.buttonText}>{updating ? <Spinner color = {WHITE}/> : "Mark As Read"}</Text>}
+            </Button>}
         </View>
     )
 };
@@ -14,8 +23,16 @@ const Notification = () => {
 export default Notification;
 
 const styles = StyleSheet.create({
+    button: {
+        marginTop: 10
+    },
+    buttonText: {
+        color: WHITE,
+        fontSize: 20
+    },
     notification: {
-        fontSize: 15
+        fontSize: 15,
+        color: BLACK
     },
     notificationContainer: {
         width: '100%',

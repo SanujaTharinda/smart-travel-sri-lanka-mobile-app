@@ -1,25 +1,20 @@
 import React from 'react'
 import { ScrollView ,View, Text, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { getReadNotifications, getTodayNotifications } from '../../store/entities/users';
 import { GREY } from '../../theme/colors';
 import Notification from './Notification';
 
 export default function Read() {
+    
+    const read = useSelector(getReadNotifications);
+    const today = useSelector(getTodayNotifications);
+    console.log("Today: ", today);
+    
+
     return (
         <ScrollView style = {styles.container}>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
-           <Notification/>
+           {read.map((r,i) => <Notification key = {"read-notify" + i.toString()} content = {r.content} isRead = {true}/>)}
         </ScrollView>
     )
 };

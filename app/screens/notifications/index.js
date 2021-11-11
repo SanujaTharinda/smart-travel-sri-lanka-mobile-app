@@ -1,13 +1,31 @@
 import * as React from 'react';
 import { useWindowDimensions, StyleSheet, Text,View,ScrollView, Image, Dimensions } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useFirestoreConnect } from 'react-redux-firebase';
 import { BLACK, DARKGREY, GREY, PRIMARY, WHITE } from '../../theme/colors';
+import { collections } from "../../firebase";
 import Read from './Read';
 import Unread from './Unread';
+import { useSelector } from 'react-redux';
+import { getAuth} from "../../store/auth";
 
 
-const Destination = () => {
+const Notifications = () => {
   const layout = useWindowDimensions();
+  const auth = useSelector(getAuth);
+
+  useFirestoreConnect([
+      {
+          collection: collections.users.name,
+          doc: auth.uid,
+          subcollections: [{
+              collection: collections.users.notifications.name
+          }],
+          storeAs: 'notifications'
+      }
+  ]);
+
+
   const renderScene = SceneMap({
     read: Read,
     unread: Unread,
@@ -16,8 +34,8 @@ const Destination = () => {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'read', title: 'Read'},
-    { key: 'unread', title: 'Unread'},
+      { key: 'unread', title: 'Unread'},
+      { key: 'read', title: 'Read'},
   ]);
 
   return (
@@ -35,7 +53,7 @@ const Destination = () => {
   );
 }
 
-export default Destination;
+export default Notifications;
 
 
 const styles = StyleSheet.create({

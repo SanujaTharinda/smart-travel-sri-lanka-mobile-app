@@ -26,6 +26,9 @@ export default {
                 name: "checklists"
             }
         },
+        notifications: {
+            name: "notifications"
+        }
     },
     categories: {
         name: 'categories'

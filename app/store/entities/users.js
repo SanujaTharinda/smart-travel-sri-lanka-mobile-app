@@ -117,6 +117,16 @@ export const createTrip = (data, auth) => {
                 travelMode,
                 destinations
             });
+            const previous = moment(new Date(startDate)).subtract(1, "days");
+            console.log("Previous: ", previous);
+            if(previous.diff(moment(), "days") + 1 > 0){
+                await firestore.collection(collections.users.name).doc(auth.uid).collection(collections.users.notifications.name).add({
+                    content: `Reminder: Your ${name} starts on ${new Date(startDate).getDate()}`,
+                    isRead: false,
+                    popUpDay: previous.toDate()
+                });
+            }
+
             dispatch(createTripSucceeded());
         } catch (e) {
             dispatch(createTripFailed());
@@ -167,13 +177,26 @@ export const updateCheckList = (data, auth, tripId, checkListID) => {
 export const saveJournal = (data, auth, tripId) => {
     return async (dispatch, getState, { getFirestore }) => {
         try {
-            console.log("Data: ", data);
-            console.log("Auth: ", auth);
-            console.log("Trip ID: ", tripId);
             const firestore = getFirestore();
             dispatch(updateCheckListRequested());
             await firestore.collection(collections.users.name).doc(auth.uid).collection(collections.users.trips.name).doc(tripId).update({
                 journal: data
+            });
+            dispatch(updateCheckListOver());
+        } catch (e) {
+            dispatch(updateCheckListOver());
+            console.log(e);
+        }
+    }
+};
+
+export const markRead = (auth, notificationID) => {
+    return async (dispatch, getState, { getFirestore }) => {
+        try {
+            const firestore = getFirestore();
+            dispatch(updateCheckListRequested());
+            await firestore.collection(collections.users.name).doc(auth.uid).collection(collections.users.notifications.name).doc(notificationID).update({
+                isRead: true
             });
             dispatch(updateCheckListOver());
         } catch (e) {
@@ -269,6 +292,20 @@ export const getCheckList = (tripID) => createSelector(
     checklist => checklist ? checklist : undefined,
 );
 
+export const getTodayNotifications = createSelector(
+    state => state.firestore.ordered.notifications,
+    notifications => notifications ? notifications.filter(n => moment().diff(moment(n.popUpDay.toDate()), "days") === 0) : []
+);
+
+export const getReadNotifications = createSelector(
+    getTodayNotifications,
+    notifications => notifications ? notifications.filter(n => n.isRead === true) : []
+);
+
+export const getUnReadNotifications = createSelector(
+    getTodayNotifications,
+    notifications => notifications ? notifications.filter(n => n.isRead === false) : []
+);
 
 export const getOngoingTrips = createSelector(
     getTrips,
