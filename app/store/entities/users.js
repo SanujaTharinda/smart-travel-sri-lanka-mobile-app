@@ -12,7 +12,8 @@ const slice = createSlice({
         createTripSuccessfull: false,
         createTripError: null,
         createdTrip: null,
-        updatingChecklist: false
+        updatingChecklist: false,
+        reviewAdding: false
     },
     reducers: {
         //Events -> Event Handlers
@@ -56,6 +57,12 @@ const slice = createSlice({
         },
         updateCheckListOver(users, action){
             users.updatingChecklist = false;
+        },
+        reviewAddRequested(users, action){
+            users.reviewAdding = true;
+        },
+        reviewAddOver(users, action){
+            users.reviewAdding = true;
         }
     }
 });
@@ -74,7 +81,9 @@ export const {
     createdTripSuccessStatusChanged,
     createdTripSet,
     updateCheckListRequested,
-    updateCheckListOver
+    updateCheckListOver,
+    reviewAddRequested,
+    reviewAddOver
 } = slice.actions;
 
 
@@ -116,6 +125,25 @@ export const createTrip = (data, auth) => {
     }
 };
 
+export const addReview = (review, destinationId) => {
+    return async (dispatch, getState, { getFirestore }) => {
+        try {
+            console.log("Review: ", review);
+            console.log("Destination ID: ", destinationId);
+            const firestore = getFirestore();
+            dispatch(reviewAddRequested());
+            await firestore.collection(collections.destinations.name)
+                                .doc(destinationId)
+                                .collection(collections.destinations.reviews.name)
+                                .add(review);
+            dispatch(reviewAddOver());
+        } catch (e) {
+            dispatch(reviewAddOver());
+            console.log(e);
+        }
+    }
+};
+
 export const updateCheckList = (data, auth, tripId, checkListID) => {
     return async (dispatch, getState, { getFirestore }) => {
         try {
@@ -139,9 +167,6 @@ export const updateCheckList = (data, auth, tripId, checkListID) => {
 export const addCheckList = (data, auth, tripId) => {
     return async (dispatch, getState, { getFirestore }) => {
         try {
-            console.log("Data: ", data);
-            console.log("Auth: ", auth);
-            console.log("Trip ID: ", tripId);
             const firestore = getFirestore();
             dispatch(updateCheckListRequested());
             await firestore.collection(collections.users.name).doc(auth.uid).collection(collections.users.trips.name).doc(tripId).collection("checklists").add({
@@ -208,6 +233,11 @@ export const getTripCreatedStatus = createSelector(
 export const getCreatedTrip = createSelector(
     state => state.users,
     u => u.createdTrip
+);
+
+export const getReviewAddingStatus = createSelector(
+    state => state.users,
+    u => u.reviewAdding
 );
 
 export const getTrips = createSelector(

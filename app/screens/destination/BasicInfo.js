@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Image, ScrollView, Text, StyleSheet, Dimensions } from 'react-native';
-import { BLACK, DARKGREY, GREY, PRIMARY } from '../../theme/colors';
+import { BLACK, DARKGREY, GREY, PRIMARY, WHITE } from '../../theme/colors';
 import { useFirestoreConnect } from 'react-redux-firebase';
 import Reviews from './Reviews';
 import { collections } from './../../firebase';
 import { useSelector } from 'react-redux';
 import { getReviews } from '../../store/entities/destinations';
 import Map from './Map';
+import AddReview from './AddReview';
+import { getAuth } from '../../store/auth';
 
 const BasicInfo = ({ destination }) => {
     useFirestoreConnect([{ 
@@ -18,6 +20,13 @@ const BasicInfo = ({ destination }) => {
     } 
     ]);
     const reviews = useSelector(getReviews);
+    const auth = useSelector(getAuth);
+    const [ alreadyReviewed, setAlreadyReviewed ] = useState(false);
+
+    useEffect(() => {
+        const element = reviews.find(r => r.userId === auth.uid);
+        if(element)setAlreadyReviewed(true);
+    }, [reviews])
 
     return (
         <ScrollView>
@@ -29,6 +38,7 @@ const BasicInfo = ({ destination }) => {
                 <Text style = {styles.sectionTitle}>Overview</Text>
                 <Text style = {styles.overview}>{destination.overview}</Text>
                 <Text style = {styles.sectionTitle}>Reviews</Text>
+                {!alreadyReviewed && <AddReview destinationID = {destination.id}/>}
                 <Reviews reviews = {reviews}/>
                 <Text style = {styles.sectionTitle}>Map</Text>
                 <Map location = {destination.coords}/>
@@ -44,6 +54,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
         flexGrow: 1,
+        
     },
     contentContainer: {
         padding: 20
