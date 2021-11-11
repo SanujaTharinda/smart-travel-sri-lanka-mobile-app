@@ -1,12 +1,15 @@
 import React, { useState, } from 'react';
-import { ScrollView, View, Text, StyleSheet, Dimensions } from 'react-native';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Button } from '@ui-kitten/components';
 import TripMap from './TripMap';
 import TripLocation from './TripLocation';
 import { BLACK, WHITE } from '../../theme/colors';
 import CheckList from './CheckList';
+import { NAVIGATION } from '../../constants';
 
 const TripPlan = ({ plan, onGoBackPress}) => {
+    const navigator = useNavigation();
     const [ checkListView, setCheckListView ] = useState(false);
 
     return(
@@ -30,6 +33,12 @@ const TripPlan = ({ plan, onGoBackPress}) => {
                             size='small'
                             style={styles.button}>
                                 {(evaProps) => <Text {...evaProps} style={styles.buttonText}>View Checklist</Text>}
+                        </Button>
+                        <Button
+                            onPress = {() => navigator.navigate(NAVIGATION.myTrips.journal, {tripID: plan.id })}
+                            size='small'
+                            style={styles.button}>
+                                {(evaProps) => <Text {...evaProps} style={styles.buttonText}>View Journal</Text>}
                         </Button>
                         <Button
                             onPress = {onGoBackPress}

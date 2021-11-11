@@ -164,6 +164,25 @@ export const updateCheckList = (data, auth, tripId, checkListID) => {
     }
 };
 
+export const saveJournal = (data, auth, tripId) => {
+    return async (dispatch, getState, { getFirestore }) => {
+        try {
+            console.log("Data: ", data);
+            console.log("Auth: ", auth);
+            console.log("Trip ID: ", tripId);
+            const firestore = getFirestore();
+            dispatch(updateCheckListRequested());
+            await firestore.collection(collections.users.name).doc(auth.uid).collection(collections.users.trips.name).doc(tripId).update({
+                journal: data
+            });
+            dispatch(updateCheckListOver());
+        } catch (e) {
+            dispatch(updateCheckListOver());
+            console.log(e);
+        }
+    }
+};
+
 export const addCheckList = (data, auth, tripId) => {
     return async (dispatch, getState, { getFirestore }) => {
         try {
@@ -264,6 +283,11 @@ export const getInFutureTrips = createSelector(
 export const getPastTrips = createSelector(
     getTrips,
     trips => trips ? trips.filter(t => moment().diff(moment(t.endDate.toDate()), "days") > 0 ) : []
+);
+
+export const getTripByTripID = (tripID) => createSelector(
+    getTrips,
+    trips => trips.find(t => t.id === tripID)
 );
 
 
