@@ -23,7 +23,7 @@ const ImageGallery = ({ destination }) => {
     const images = useSelector(getDestinationImages);
 
     return (<>
-            {isLoaded(images) && images.length > 0 ? <GridImageView data={images} /> : <AnimatedEmpty message = "No Images To Display..."/>}
+            {images.length > 0 ? <GridImageView data={images} /> : <AnimatedEmpty message = "No Images To Display..."/>}
         </>
     )
 };
