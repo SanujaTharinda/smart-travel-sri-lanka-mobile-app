@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { getReadNotifications, getTodayNotifications } from '../../store/entities/users';
 import { GREY } from '../../theme/colors';
 import Notification from './Notification';
+import AnimatedEmpty from "../../components/common/AnimatedEmpty";
 
 export default function Read() {
     
@@ -13,9 +14,11 @@ export default function Read() {
     
 
     return (
-        <ScrollView style = {styles.container}>
+        <>
+        {read && read.length > 0 ? <ScrollView style = {styles.container}>
            {read.map((r,i) => <Notification key = {"read-notify" + i.toString()} content = {r.content} isRead = {true}/>)}
-        </ScrollView>
+        </ScrollView> : <AnimatedEmpty message = {"No Unread Notifications..."}/>}
+        </>
     )
 };
 

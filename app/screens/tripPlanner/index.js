@@ -20,9 +20,11 @@ import ThirdStep from './ThirdStep';
 import TripPlan from './TripPlan';
 import { NAVIGATION } from '../../constants';
 import { getCreatedTrip, setCreatedTrip } from '../../store/entities/users';
+import moment from 'moment';
 
 const travelModes = [
-  "Bike",
+  "Driving",
+  "Train",
   "Bus"
 ];
 
@@ -88,6 +90,7 @@ const TripPlannerFirst = () => {
           
         >
             <ProgressStep
+              nextBtnDisabled = {moment(endDate).diff(startDate, "days") < 0}
               scrollViewProps = {{
                 keyboardShouldPersistTaps: 'always'
               }}
@@ -114,6 +117,7 @@ const TripPlannerFirst = () => {
                     setTravelMode
                   }}
                   travelModes = {travelModes}
+                  error = {moment(endDate).diff(startDate, "days") < 0 ? "End Date Can not be less than start date" : ""}
               />
             </ProgressStep>
             <ProgressStep

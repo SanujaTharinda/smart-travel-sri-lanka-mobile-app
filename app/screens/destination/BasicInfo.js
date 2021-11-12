@@ -9,6 +9,8 @@ import { getReviews } from '../../store/entities/destinations';
 import Map from './Map';
 import AddReview from './AddReview';
 import { getAuth } from '../../store/auth';
+import { getWeather } from '../../APIs/weatherAPI';
+import Weather from './Weather';
 
 const BasicInfo = ({ destination }) => {
     useFirestoreConnect([{ 
@@ -28,6 +30,8 @@ const BasicInfo = ({ destination }) => {
         if(element)setAlreadyReviewed(true);
     }, [reviews])
 
+    
+
     return (
         <ScrollView>
             <Image style = {styles.image} source = {{uri: destination.mainPhoto}}/>
@@ -42,6 +46,9 @@ const BasicInfo = ({ destination }) => {
                 <Reviews reviews = {reviews}/>
                 <Text style = {styles.sectionTitle}>Map</Text>
                 <Map location = {destination.coords}/>
+                <Text style = {styles.sectionTitle}>Weather</Text>
+                <Weather lat = {destination.coords[0]} long = {destination.coords[1]}/>
+
             </View> 
         </ScrollView>
     )

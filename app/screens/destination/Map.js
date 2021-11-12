@@ -2,7 +2,7 @@ import * as React from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
-export default function Map({ location }) {
+const Map = ({ location }) => {
   return (
     <View style={styles.container}>
       <MapView style={styles.map} initialRegion = {{
@@ -24,7 +24,9 @@ export default function Map({ location }) {
       </MapView>
     </View>
   );
-}
+};
+
+export default React.memo(Map);
 
 const styles = StyleSheet.create({
   container: {

@@ -17,7 +17,7 @@ const Home = () => {
                 <View style={styles.contentHeader}>
                     <Text style={styles.hiMessage}>Hi Traveller !</Text>
                     <Text style={styles.careMessage}>Care to explore an adventure of a lifetime?...</Text>
-                    {/* <SearchBar/> */}
+                    <SearchBar/>
                 </View>
                 <TripPlanner />
                 <Corousels />

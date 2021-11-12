@@ -1,6 +1,7 @@
 import React from 'react'
 import { ScrollView ,View, Text, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import AnimatedEmpty from '../../components/common/AnimatedEmpty';
 import { getAuth } from '../../store/auth';
 import { getChecklistUpdatingStatus, getUnReadNotifications, markRead } from '../../store/entities/users';
 import { GREY } from '../../theme/colors';
@@ -17,9 +18,11 @@ export default function Unread() {
     };
 
     return (
-        <ScrollView style = {styles.container}>
-          {unread.map((u,i) => <Notification onRead= {() => handleMark(u)} key = {"unread-notify" + i.toString()} content = {u.content} isRead = {false} updating = {updating}/>)}
-        </ScrollView>
+        <>
+            {unread && unread.length > 0 ? <ScrollView style = {styles.container}>
+            {unread.map((u,i) => <Notification onRead= {() => handleMark(u)} key = {"unread-notify" + i.toString()} content = {u.content} isRead = {false} updating = {updating}/>)}
+            </ScrollView> : <AnimatedEmpty message = {"No Read Notifications..."}/>}
+        </>
     )
 };
 

@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  Text
 } from 'react-native';
 
 import Datepicker from '../../components/common/Datepicker';
 import Selector from '../../components/common/Selector';
 
 
-const FirstStep = ({ states, setters, travelModes }) => {
+const FirstStep = ({ states, setters, travelModes, error }) => {
     return(
            <View style={styles.plannerBox}>
                 <Datepicker 
@@ -28,6 +29,7 @@ const FirstStep = ({ states, setters, travelModes }) => {
                     onChange = {(travelMode) => setters.setTravelMode(travelMode)}
                     initialIndex = {travelModes.indexOf(states.travelMode)}
                 />
+                <Text style = {{ color: "red"}}>{error}</Text>
             </View>
 
     );

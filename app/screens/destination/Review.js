@@ -7,7 +7,7 @@ const Review = ({ review }) => {
     return(
         <View style = {styles.wrapper}>
             <View style = {styles.container}>
-                <Image style = {styles.image} source = {review.profileURL ? {uri: review.profileURL} : require('../../../assets/icon.png')}/>
+                <Image style = {styles.image} source = {review.profileURL ? {uri: review.profileURL} : require('../../../assets/profile/blankProfile.png')}/>
                 <View style = {styles.contentContainer}>
                         <Text style = {styles.userName}>{review.userName}</Text>
                         <AirbnbRating
@@ -53,10 +53,10 @@ const styles = StyleSheet.create({
         
     },  
     image: {
-        width: 70,
-        height: 70,
+        width: 60,
+        height: 60,
         flex: 0.3,
-        borderRadius: 35
+        borderRadius: 30
     },
     userName: {
         fontSize: 15

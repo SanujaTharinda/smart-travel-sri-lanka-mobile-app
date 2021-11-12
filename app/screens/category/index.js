@@ -1,76 +1,80 @@
 import React from 'react';
-import { ScrollView,StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import { Autocomplete, AutocompleteItem } from '@ui-kitten/components';
 import { useFirestoreConnect } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 import DestinationCard from './destinationCard';
-import { Spinner } from '../../components/common/Spinner';
 import { collections } from './../../firebase';
 import { getPublishedDestinationsByCategory } from '../../store/entities/destinations';
-import NoResults from '../../components/common/NoResults';
 import { FlatList } from 'react-native-gesture-handler';
 import Seperator from '../../components/common/Seperator';
+import { useNavigation } from '@react-navigation/native';
+import { NAVIGATION } from '../../constants';
 
-
-
-const destinationsMock = [
-    {
-        id: 1,
-        data: [{
-            title: "Temple of Tooth Relic",
-            rating: 5,
-            shortDescription: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Maxime mollitia,molestiae quas vel sint commodi."
-        },
-        {
-            title: "Some Place",
-            rating: 4,
-            shortDescription: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Maxime mollitia,molestiae quas vel sint commodi."
-        },
-        {
-            title: "Another Place",
-            rating: 5,
-            shortDescription: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Maxime mollitia,molestiae quas vel sint commodi."
-        }
-
-        ]
-    },
-    {
-        id: 2,
-        data: []
-    },
-    {
-        id: 3,
-        data: []
-    },
-    {
-        id: 4,
-        data: []
-    },
-]
-
-
+const filter = (item, query) => item.title.toLowerCase().includes(query.toLowerCase());
 
 const Category = ({ route }) => {
     const category = route.params;
+    const navigator = useNavigation();
     useFirestoreConnect([
         collections.destinations.name
     ]);
     const destinations = useSelector(getPublishedDestinationsByCategory(category.title));
 
+    const [value, setValue] = React.useState(null);
+    const [data, setData] = React.useState(destinations);
+
+    const onSelect = (index) => {
+        setValue(data[index].title);
+        navigator.navigate(NAVIGATION.destination, {destination: data[index]});
+    };
+
+    const onChangeText = (query) => {
+        setValue(query);
+        setData(destinations.filter(item => filter(item, query)));
+
+    };
+
+    const renderOption = (item, index) => (
+        <AutocompleteItem
+        key={index}
+        title={item.title}
+        />
+    );
+
     return (
-       <FlatList
+        <>
+        <View style = {{marginBottom: 20, color: "red"}}>
+            <Autocomplete
+                status = "primary"
+                style = {styles.autoComplete}
+                placeholder='Enter Location To Search...'
+                value={value}
+                onSelect={onSelect}
+                onChangeText={onChangeText}>
+                {data.map(renderOption)}
+                
+            </Autocomplete>
+        </View>
+        <FlatList
             style = {styles.container}
             data = {destinations}
             keyExtractor = {d => d.id}
             renderItem = {({ item }) => <DestinationCard destination = {item}/>}
             ItemSeparatorComponent = {Seperator}
-       />
+        />
+       </>
     );
 }
 
 export default Category;
 
 const styles = StyleSheet.create({
+    autoComplete: {
+        marginBottom: 40
+    },
     container: {
         marginTop: 20
-    }
+    },
+    
 })
