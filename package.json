@@ -5,7 +5,11 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "react-native"
   },
   "dependencies": {
     "@eva-design/eva": "^2.1.1",
@@ -20,6 +24,7 @@
     "@ui-kitten/components": "^5.1.1",
     "@ui-kitten/eva-icons": "^5.1.1",
     "axios": "0.18.0",
+    "babel-preset-react-native": "^4.0.1",
     "expo": "~42.0.1",
     "expo-blur": "~9.0.3",
     "expo-image-picker": "~10.2.2",
@@ -72,7 +77,10 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "jest": "^27.3.1",
+    "jest-expo": "^43.0.1",
+    "react-test-renderer": "^17.0.2"
   },
   "private": true
 }
